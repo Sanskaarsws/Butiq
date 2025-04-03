@@ -1,9 +1,31 @@
-import React from 'react'
+import "./App.css";
 
-const App = () => {
+import Navbar from "./components/NavBar/Navbar";
+import Footer from "./components/Footer/Footer";
+
+import Home from "./pages/Home";
+
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import ScrollToTop from "./hooks/ScrollToTop";
+
+export default function App() {
   return (
-    <div className='m-5'>App</div>
-  )
+    <BrowserRouter>
+      <AppContent />
+    </BrowserRouter>
+  );
 }
 
-export default App
+// -------------------- Routing --------------------
+function AppContent() {
+  return (
+    <>
+      <ScrollToTop />
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+      </Routes>
+      <Footer />
+    </>
+  );
+}
