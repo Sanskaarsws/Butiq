@@ -1,11 +1,11 @@
 import "./Navbar.css";
 import { useState, useRef, useEffect, useCallback } from "react";
 import { Link, NavLink } from "react-router-dom";
-import { navbarData, destinationsDropdown, hotelsAndResortsDropdown } from "../../utils/Constant";
+import { navbarData, destinationsDropdown, hotelsAndResortsDropdown } from "@/utils/Constant";
 import { Button } from "@material-tailwind/react";
-import DropdownMenu from "../Dropdown/Dropdown";
-import MultilanguageInput from "../ui/language-input/MultilanguageInput";
-import crossIcon from "../../assets/images/cross-svgrepo-com.svg";
+import DropdownMenu from "../../dropdowns/Dropdown";
+import MultilanguageInput from "../../ui/language-input/MultilanguageInput";
+import crossIcon from "@/assets/images/cross-svgrepo-com.svg";
 
 export default function Navbar() {
   const [isNavOpen, setIsNavOpen] = useState(false);
