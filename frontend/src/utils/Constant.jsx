@@ -1,34 +1,34 @@
-import user1 from "../assets/images/portrait.jpg";
-import butiqForYouLogo from "../assets/images/ButiQ Black SVG.svg";
+import user1 from "@/assets/images/portrait.jpg";
+import butiqForYouLogo from "@/assets/images/ButiQ Black SVG.svg";
 
-import Hotel1 from "../assets/images/hotel1.jpg";
+import Hotel1 from "@/assets/images/hotel1.jpg";
 
-import agra from "../assets/images/agra_2.jpg";
-import agra_1 from "../assets/images/agra_1.jpg";
+import agra from "@/assets/images/agra_2.jpg";
+import agra_1 from "@/assets/images/agra_1.jpg";
 
-import bhopalImg from "../assets/images/bhopalImg.jpg";
-import bhopal_1 from "../assets/images/theTen.jpg";
-import bhopal_2 from "../assets/images/masseria.jpg";
-import bhopal_3 from "../assets/images/zyna.jpg";
-import bhopal_4 from "../assets/images/Solghar(Residences).jpg";
+import bhopalImg from "@/assets/images/bhopalImg.jpg";
+import bhopal_1 from "@/assets/images/theTen.jpg";
+import bhopal_2 from "@/assets/images/masseria.jpg";
+import bhopal_3 from "@/assets/images/zyna.jpg";
+import bhopal_4 from "@/assets/images/Solghar(Residences).jpg";
 
-import saje from "../assets/images/saje.jpg";
-import saje1 from "../assets/images/LittleKonkanFarmhouse.jpg";
-import saje2 from "../assets/images/CasaPortuga-Saje.jpg";
+import saje from "@/assets/images/saje.jpg";
+import saje1 from "@/assets/images/farms/LittleKonkanFarmhouse.jpg";
+import saje2 from "@/assets/images/CasaPortuga-Saje.jpg";
 
-import varanasi from "../assets/images/varanasi.jpg";
-import varanasi_1 from "../assets/images/baheriHouse.jpg";
+import varanasi from "@/assets/images/varanasi.jpg";
+import varanasi_1 from "@/assets/images/baheriHouse.jpg";
 
-import satpuraTigerReserve from "../assets/images/satpuraReserve.jpg";
-import satpuraTigerReserve_1 from "../assets/images/KamtiKula.jpg";
+import satpuraTigerReserve from "@/assets/images/satpuraReserve.jpg";
+import satpuraTigerReserve_1 from "@/assets/images/KamtiKula.jpg";
 
-import goa from "../assets/images/goa.jpg";
-import goa_1 from "../assets/images/goa_1.jpg";
-import goa_2 from "../assets/images/goa_2.jpg";
-import goa_3 from "../assets/images/goa_3.jpg";
+import goa from "@/assets/images/goa.jpg";
+import goa_1 from "@/assets/images/goa_1.jpg";
+import goa_2 from "@/assets/images/goa_2.jpg";
+import goa_3 from "@/assets/images/goa_3.jpg";
 
-import karjat from "../assets/images/karjat.jpg";
-import karjat_1 from "../assets/images/karjat_1.jpg";
+import karjat from "@/assets/images/karjat.jpg";
+import karjat_1 from "@/assets/images/karjat_1.jpg";
 
 const testimonials = [
   {
