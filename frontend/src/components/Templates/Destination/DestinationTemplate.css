@@ -1,0 +1,21 @@
+.destinationDescription {
+  font-size: 17px;
+  line-height: 1.6;
+  margin: 0 5% 2rem;
+  line-height: 1.3;
+  font-weight: 400;
+  font-family: "Glacial Indifference", sans-serif;
+  text-align: center;
+}
+
+.destinationHeader {
+  margin: 2rem 0 4rem;
+  & > h2 {
+    font-family: "Raleway";
+    font-size: 22px !important; /* Matches the heading size in the image */
+    font-weight: 400 !important;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+}
