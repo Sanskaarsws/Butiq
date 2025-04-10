@@ -1,0 +1,5 @@
+.testimonialSliderCard {
+  & > p {
+    font-family: "Glacial Indifference", sans-serif;
+  }
+}

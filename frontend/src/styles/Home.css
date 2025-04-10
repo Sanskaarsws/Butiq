@@ -1,0 +1,367 @@
+.mainContainer {
+  height: auto;
+
+  border: 1px solid #fcfcfa;
+  background-color: #fcfcfa;
+}
+
+.heroSection {
+  margin-top: 60px;
+  position: relative;
+  height: 75vh;
+  overflow: hidden;
+  background-color: #fcfcfa;
+
+  & img {
+    width: 100%;
+    height: 88vh;
+    object-fit: cover;
+  }
+}
+
+.video_container {
+  & > video {
+    object-fit: cover;
+    height: 900px;
+    width: 100%;
+  }
+}
+
+.aboutSection {
+  margin: 5% 4rem 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  height: auto;
+}
+
+.aboutSection figure {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.aboutSection article h1 {
+  font-size: 24px;
+  line-height: normal;
+  font-weight: 400;
+  position: relative;
+}
+
+.aboutSection article {
+  font-family: "Raleway", serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+  margin: auto 4rem auto 0;
+  /* padding-right: 20%; */
+}
+
+.aboutSection article p {
+  font-family: "Glacial Indifference", sans-serif;
+  font-size: 17px;
+  font-weight: 400;
+  line-height: normal;
+  margin: 3% 0;
+  color: #757575;
+}
+
+.aboutSection article div {
+  display: flex;
+}
+
+#large-header {
+  position: absolute;
+  top: 0;
+  pointer-events: none;
+  width: 100%;
+  height: 100%;
+}
+#demo-canvas {
+  width: 100%;
+  height: 100%;
+}
+
+/* ---------------------------------------------------------------------------------Hero Button style-------------------------------------------------- */
+
+.aboutBtn {
+  padding: 0.4rem 1.8em;
+  position: relative;
+  border: 1.5px solid black;
+  overflow: hidden;
+  background-color: transparent;
+  text-align: center;
+  font-size: 16px;
+  transition: 0.3s;
+  z-index: 1;
+  font-family: inherit;
+  color: white;
+}
+
+.aboutBtn::before {
+  content: "";
+  width: 105%;
+  height: 85vw;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(45deg);
+  background: #000000;
+  transition: 0.5s ease;
+  display: block;
+  z-index: -1;
+}
+
+.aboutBtn:hover::before {
+  width: 0;
+}
+
+.aboutBtn:hover {
+  color: #111;
+  border: 1.5px solid black;
+}
+
+.locations_container {
+  margin: 1rem 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+  overflow-x: hidden;
+  & > div {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    height: 40rem;
+
+    & figure {
+      margin-inline: 4rem;
+      height: 38rem;
+      position: relative;
+
+      &::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        inset: 0;
+        background: linear-gradient(
+          to top,
+          rgba(0, 0, 0, 0.5) 0.6%,
+          rgba(0, 0, 0, 0) 15%
+        );
+        width: 100%;
+        height: 100%;
+      }
+
+      & > img {
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+      }
+
+      & > div {
+        z-index: 999;
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        text-align: center;
+        color: white;
+        transform: translateX(-50%);
+        margin: 2%;
+
+        & > p {
+          margin: 1rem 0 0;
+          flex-basis: 3%;
+          font-size: 1rem;
+          text-align: center;
+        }
+
+        & > span {
+          font-weight: 300;
+          font-size: 14px;
+        }
+      }
+    }
+  }
+}
+
+.arrow {
+  position: absolute;
+  top: 45%;
+  transform: translateY(-50%);
+  z-index: 10;
+  cursor: pointer;
+  font-size: 1rem;
+  color: white;
+  /* background: rgba(0, 0, 0, 0.5); */
+  padding: 10px;
+  border-radius: 50%;
+  transition: 0.3s;
+
+  & > img {
+    height: 2rem;
+  }
+}
+
+.arrow:hover {
+  /* background: rgba(0, 0, 0, 0.8); */
+}
+
+.next {
+  right: 10px;
+}
+
+.prev {
+  left: 10px;
+  transform: rotate(-180deg);
+}
+
+/* -------------------------------------------------------------------------------------------------------------------------------------- */
+
+.welcomeSection {
+  text-align: center;
+  width: 70%;
+  margin: 100px auto 100px;
+  max-width: 100%;
+  color: #000; /* Match the dark text in the image */
+}
+
+.welcomeSection > h2 {
+  font-family: "Raleway";
+  font-size: 22px !important; /* Matches the heading size in the image */
+  font-weight: 400 !important;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.welcomeSection p {
+  font-size: 17px;
+  line-height: 1.6;
+  margin: 0 auto 2rem;
+  line-height: 1.3;
+  font-weight: 400;
+  font-family: "Glacial Indifference", sans-serif;
+}
+
+.welcomeSection article {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 30px;
+}
+
+.welcomeSection article div {
+  text-align: center;
+  width: 25%;
+
+  & > figure {
+    width: 4rem;
+  }
+}
+
+.welcomeSection figure {
+  margin: 0 auto 1rem;
+  width: 80px; /* Ensure the icon width matches the image */
+  height: 80px;
+}
+
+.welcomeSection figure img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.welcomeSection article p {
+  font-weight: 700;
+
+  text-transform: uppercase;
+  font-family: "Raleway";
+}
+.welcomeSection article div > p {
+  font-size: 14px;
+  margin-bottom: 0px;
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------------------------------------- */
+
+.divider {
+  width: 40px;
+  border: 0;
+  border-top: 1px solid #ccc;
+  margin: 20px auto;
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------------------------------------- */
+/* ---------------------------------------------------------------------------------------------------------------------------------------------------- */
+
+@media screen and (max-width: 1024px) {
+  .aboutSection {
+    display: grid;
+    grid-template-columns: 1fr;
+    min-height: 100vh;
+  }
+
+  .aboutSection article {
+    grid-row: 2/3;
+    padding: 5%;
+  }
+  .aboutSection figure {
+    grid-row: 1/2;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .accordionSection div:first-of-type {
+    grid-column: 1/3;
+    grid-row: 1/2;
+  }
+
+  .aboutSection article h1,
+  .whyUsContainer article h1 {
+    font-size: 34px;
+    font-weight: 700;
+  }
+
+  .accordionSection div h1 {
+    margin-bottom: 10%;
+  }
+  .accordionSection div:last-of-type {
+    grid-column: 1/3;
+    grid-row: 2/3;
+  }
+
+  .aboutSection article p {
+    margin: 5% 0;
+  }
+  .aboutSection figure img {
+    height: 60%;
+  }
+
+  .aboutSection article p {
+    font-size: 14px;
+  }
+
+  .aboutSection article div > button:first-of-type {
+    margin-right: 0%;
+  }
+
+  .aboutSection article {
+    padding: 5%;
+  }
+
+  .aboutSection article div {
+    flex-direction: column;
+    gap: 1.5rem;
+    width: 100%;
+  }
+}
+
+@keyframes gradientColorAnimation {
+  0% {
+    background-position: 0 1600px;
+  }
+
+  to {
+    background-position: 1600px 0;
+  }
+}
