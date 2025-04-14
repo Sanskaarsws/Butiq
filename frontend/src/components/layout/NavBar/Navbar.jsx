@@ -10,6 +10,8 @@ import crossIcon from "@/assets/images/cross-svgrepo-com.svg";
 export default function Navbar() {
   const [isNavOpen, setIsNavOpen] = useState(false);
   const [isSearchbarOpen, setIsSearchbarOpen] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
   const inputRef = useRef(null);
   const sidebarRef = useRef(null);
   const navRef = useRef();
@@ -37,30 +39,62 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [handleScroll]);
 
+  const menuItems = [
+    { label: "About Us", path: "/about" },
+    { label: "Partner With Us", path: "/partner-with-us" },
+    { label: "Offers", path: "/offers" },
+    { label: "Stories", path: "/stories" },
+    { label: "Contact Us", path: "/contact" },
+  ];
+
   return (
     <header className="navigation" ref={navRef}>
       <nav className="flex justify-between w-full items-center">
         {/* Sidebar & Language Input */}
         <div ref={sidebarRef} className="absolute left-0 flex items-center z-8">
           {/* Burger Menu */}
-          <figure className="burgerIcon_dropDown_container">
-            <svg id="burgerIcon" width="24" height="18" className="cursor-pointer">
+          <div className="burgerIcon_dropDown_container relative">
+            <svg
+              id="burgerIcon"
+              width="24"
+              height="18"
+              className="cursor-pointer"
+              onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+            >
               <path d="M1 1H23" stroke="#808080" strokeWidth="1" strokeLinecap="round" />
               <path d="M1 9H23" stroke="#808080" strokeWidth="1" strokeLinecap="round" />
               <path d="M1 17H23" stroke="#808080" strokeWidth="1" strokeLinecap="round" />
             </svg>
-            <div className="sidebar">
-              <ul className="p-4">
-                {["About Us", "Partner With Us", "Offers", "Stories", "Contact Us"].map((text, i) => (
-                  <li key={i}>
-                    <Link to={text === "Contact Us" ? "/contact" : `/${text.toLowerCase().replace(/\s/g, "-")}`}>
-                      {text}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </figure>
+
+            {/* Sidebar Drawer */}
+            {isSidebarOpen && (
+              <div className="sidebar absolute top-0 left-0 w-64 h-screen bg-white shadow-lg z-50 p-6">
+                <div className="flex justify-end mb-4">
+                  <img
+                    src={crossIcon}
+                    alt="Close"
+                    className="cursor-pointer"
+                    onClick={() => setIsSidebarOpen(false)}
+                  />
+                </div>
+                <ul className="space-y-4">
+                  {menuItems.map(({ label, path }, i) => (
+                    <li key={i}>
+                      <Link
+                        to={path}
+                        className="text-gray-800 hover:text-blue-600"
+                        onClick={() => setIsSidebarOpen(false)}
+                      >
+                        {label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
+
+          {/* Language Input */}
           <span className="text-sm mx-7">
             <MultilanguageInput />
           </span>
@@ -125,9 +159,20 @@ export default function Navbar() {
             return (
               <li key={index} className={`mx-4 ${isDropdown ? "dropdown-container" : ""}`}>
                 {isDropdown ? (
-                  <DropdownMenu title={link.text} menuItems={link.text === "HOTELS & RESORTS" ? hotelsAndResortsDropdown : destinationsDropdown} />
+                  <DropdownMenu
+                    title={link.text}
+                    menuItems={
+                      link.text === "HOTELS & RESORTS"
+                        ? hotelsAndResortsDropdown
+                        : destinationsDropdown
+                    }
+                  />
                 ) : (
-                  <NavLink to={link.link} onClick={() => setIsNavOpen(false)} className="text-sm">
+                  <NavLink
+                    to={link.link}
+                    onClick={() => setIsNavOpen(false)}
+                    className="text-sm"
+                  >
                     {link.text}
                   </NavLink>
                 )}

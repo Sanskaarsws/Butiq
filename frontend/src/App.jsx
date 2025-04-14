@@ -6,6 +6,7 @@ import Footer from "@/components/layout/Footer/Footer";
 import Home from "@/pages/Home";
 import Experiences from "@/pages/Experiences";
 import Residences from "@/pages/Residences";
+import About from "@/pages/About";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ScrollToTop from "@/hooks/useScrollToTop";
@@ -33,6 +34,7 @@ function AppContent() {
           path="/destination/:location"
           element={<DestinationTemplate />}
         />
+        <Route path="/about" element={<About />} />
       </Routes>
       <Footer />
     </>
