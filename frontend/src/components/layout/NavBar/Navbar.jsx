@@ -35,7 +35,6 @@ const destinationsDropdown = [
 export default function Navbar() {
   const [isNavOpen, setIsNavOpen] = useState(false);
   const [isSearchbarOpen, setIsSearchbarOpen] = useState(false);
-  const [activeDropdown, setActiveDropdown] = useState(null);
   const inputRef = useRef(null);
 
   const [navProps, setNavProps] = useState({
@@ -64,7 +63,7 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-20">
           {/* Left Section */}
           <div className="flex items-center space-x-6">
-            <div className="relative ">
+            <div className="relative">
               <button
                 className="text-gray-600 hover:text-gray-900"
                 onClick={() => setIsNavOpen(!isNavOpen)}
@@ -99,22 +98,31 @@ export default function Navbar() {
             </select>
           </div>
 
+          {/* Center Logo - Mobile */}
+          <div className="flex lg:hidden items-center justify-center">
+            <Link to="/" className="brand" style={{ width: "8rem" }}>
+              <img
+                src={navbarData.brandLogo}
+                alt="Logo"
+                className="h-10 object-contain"
+              />
+            </Link>
+          </div>
+
           {/* Center - Desktop Only */}
           <div className="hidden lg:flex items-center space-x-8">
             {navbarData.links.slice(0, 2).map((link, index) => (
-              <div key={index} className="relative">
+              <div key={index} className="relative group">
                 {link.isDropdown ? (
-                  <button
-                    className="text-gray-600 hover:text-gray-900"
-                    style={{ fontSize: navProps.linkSize }}
-                    onClick={() =>
-                      setActiveDropdown(
-                        activeDropdown === link.text ? null : link.text
-                      )
-                    }
-                  >
-                    {link.text}
-                  </button>
+                  <div className="flex items-center">
+                    <NavLink
+                      to={link.link}
+                      className="text-gray-600 hover:text-gray-900"
+                      style={{ fontSize: navProps.linkSize }}
+                    >
+                      {link.text}
+                    </NavLink>
+                  </div>
                 ) : (
                   <NavLink
                     to={link.link}
@@ -124,14 +132,13 @@ export default function Navbar() {
                     {link.text}
                   </NavLink>
                 )}
-                {link.isDropdown && activeDropdown === link.text && (
-                  <div className="absolute top-full left-0 bg-white shadow-lg py-2 w-48 mt-2">
+                {link.isDropdown && (
+                  <div className="absolute top-full left-0 bg-white shadow-lg py-2 w-48 mt-2 hidden group-hover:block hover:block transition-all duration-200">
                     {hotelsAndResortsDropdown.map((item, i) => (
                       <Link
                         key={i}
                         to={item.link}
                         className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                        onClick={() => setActiveDropdown(null)}
                       >
                         {item.text}
                       </Link>
@@ -141,7 +148,7 @@ export default function Navbar() {
               </div>
             ))}
 
-            {/* Logo */}
+            {/* Logo - Desktop */}
             <Link
               to="/"
               className="brand mx-8"
@@ -155,19 +162,17 @@ export default function Navbar() {
             </Link>
 
             {navbarData.links.slice(2).map((link, index) => (
-              <div key={index} className="relative">
+              <div key={index} className="relative group">
                 {link.isDropdown ? (
-                  <button
-                    className="text-gray-600 hover:text-gray-900"
-                    style={{ fontSize: navProps.linkSize }}
-                    onClick={() =>
-                      setActiveDropdown(
-                        activeDropdown === link.text ? null : link.text
-                      )
-                    }
-                  >
-                    {link.text}
-                  </button>
+                  <div className="flex items-center">
+                    <NavLink
+                      to={link.link}
+                      className="text-gray-600 hover:text-gray-900"
+                      style={{ fontSize: navProps.linkSize }}
+                    >
+                      {link.text}
+                    </NavLink>
+                  </div>
                 ) : (
                   <NavLink
                     to={link.link}
@@ -177,14 +182,13 @@ export default function Navbar() {
                     {link.text}
                   </NavLink>
                 )}
-                {link.isDropdown && activeDropdown === link.text && (
-                  <div className="absolute top-full left-0 bg-white shadow-lg py-2 w-48 mt-2">
+                {link.isDropdown && (
+                  <div className="absolute top-full left-0 bg-white shadow-lg py-2 w-48 mt-2 hidden group-hover:block hover:block transition-all duration-200">
                     {destinationsDropdown.map((item, i) => (
                       <Link
                         key={i}
                         to={item.link}
                         className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                        onClick={() => setActiveDropdown(null)}
                       >
                         {item.text}
                       </Link>
@@ -204,6 +208,13 @@ export default function Navbar() {
             >
               RESERVE
             </Link>
+            {/* Mobile Reserve Button */}
+            <Link
+              to="/book"
+              className="bg-black text-white px-4 py-2 text-sm lg:hidden flex items-center justify-center"
+            >
+              BOOK
+            </Link>
           </div>
         </div>
 
@@ -216,7 +227,9 @@ export default function Navbar() {
           <div className="py-4 space-y-4">
             {[...navbarData.links, ...navbarData.sidebarLinks].map(
               (link, index) => {
-                const isThisDropdownOpen = activeDropdown === link.text;
+                // For mobile, we'll keep the click functionality
+                const [isThisDropdownOpen, setIsThisDropdownOpen] =
+                  useState(false);
                 const dropdownItems =
                   link.text === "HOTELS & RESORTS"
                     ? hotelsAndResortsDropdown
@@ -226,14 +239,12 @@ export default function Navbar() {
 
                 return (
                   <div key={index}>
-                    {"isDropdown" in link ? (
+                    {link.isDropdown ? (
                       <>
                         <button
                           className="w-full text-left px-4 py-2 text-gray-600 hover:bg-gray-100"
                           onClick={() =>
-                            setActiveDropdown(
-                              isThisDropdownOpen ? null : link.text
-                            )
+                            setIsThisDropdownOpen(!isThisDropdownOpen)
                           }
                         >
                           {link.text}
@@ -246,7 +257,7 @@ export default function Navbar() {
                                 to={item.link}
                                 className="block px-8 py-2 text-sm text-gray-600 hover:bg-gray-100"
                                 onClick={() => {
-                                  setActiveDropdown(null);
+                                  setIsThisDropdownOpen(false);
                                   setIsNavOpen(false);
                                 }}
                               >
@@ -269,16 +280,6 @@ export default function Navbar() {
                 );
               }
             )}
-
-            <div className="px-4 py-2">
-              <Link
-                to="/book"
-                className="w-full h-10 bg-black text-white flex items-center justify-center"
-                onClick={() => setIsNavOpen(false)}
-              >
-                RESERVE
-              </Link>
-            </div>
           </div>
         </div>
       </nav>
@@ -286,7 +287,7 @@ export default function Navbar() {
       {/* Search Overlay */}
       {isSearchbarOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 z-50">
-          <div className="bg-white w-[30rem] h-screen p-8">
+          <div className="bg-white w-full max-w-md h-screen p-8">
             <div className="flex justify-end">
               <button
                 onClick={() => setIsSearchbarOpen(false)}
