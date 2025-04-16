@@ -8,6 +8,7 @@ import Experiences from "@/pages/Experiences";
 import Residences from "@/pages/Residences";
 import About from "@/pages/About";
 import Contact from "@/pages/Contact";
+import PartnerWithUs from "@/pages/PatnerWithUs";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ScrollToTop from "@/hooks/useScrollToTop";
@@ -37,6 +38,7 @@ function AppContent() {
         />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/partner-with-us" element={<PartnerWithUs />} />
       </Routes>
       <Footer />
     </>
