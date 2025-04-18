@@ -10,6 +10,7 @@ import About from "@/pages/About";
 import Contact from "@/pages/Contact";
 import PartnerWithUs from "@/pages/PatnerWithUs";
 import Book from "@/pages/Book";
+import RoomSection from "@/pages/RoomSection";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ScrollToTop from "@/hooks/useScrollToTop";
@@ -41,6 +42,7 @@ function AppContent() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/partner-with-us" element={<PartnerWithUs />} />
         <Route path="/book" element={<Book />} />
+        <Route path="/book/rooms" element={<RoomSection />} />
       </Routes>
       <Footer />
     </>
