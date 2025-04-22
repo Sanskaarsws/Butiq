@@ -1,0 +1,81 @@
+.booking-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  width: 70%;
+  margin: 2rem auto 5rem;
+}
+
+.hotel-select {
+  width: 100%;
+  border: 2px dashed #e4e0e0;
+}
+
+.calendar-header {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.calendar-container {
+  border-radius: 10px;
+  width: 100%;
+
+  & > .rdrCalendarWrapper {
+    width: 100%;
+  }
+
+  & .rdrDateDisplayWrapper {
+    background-color: #fcfcfa;
+  }
+
+  & .rdrMonthAndYearWrapper {
+    background-color: #fcfcfa;
+  }
+
+  & .rdrMonth {
+    width: 100% !important;
+    background-color: #fcfcfa;
+    border: 2px dashed #e4e0e0;
+
+    padding: 1rem;
+  }
+}
+
+.rdrDateDisplay {
+  display: none;
+}
+
+.rdrNextPrevButton {
+  margin-inline: 0;
+}
+
+.rdrDayEndPreview,
+.rdrDayStartPreview,
+.rdrDayEndPreview,
+.rdrDayStartPreview,
+.rdrDayWeekend,
+.rdrInRange,
+.rdrDay {
+  border-radius: 0 !important;
+}
+
+.rdrStartEdge {
+  color: black !important;
+  border-radius: 0 !important;
+}
+
+.rdrInRange {
+  color: black !important;
+}
+
+.rdrEndEdge {
+  border-radius: 0 !important;
+  color: black !important;
+}
+
+.check-button {
+  border: 1px solid black;
+  color: black;
+  margin-top: 20px;
+}
