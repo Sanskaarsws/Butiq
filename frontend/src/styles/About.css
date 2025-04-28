@@ -1,0 +1,140 @@
+.about-us-container {
+  margin: auto;
+  font-family: Arial, sans-serif;
+  color: #333;
+  font-family: "Glacial Indifference", sans-serif;
+}
+
+.about-text > h2 {
+  font-size: 24px;
+  line-height: normal;
+  font-weight: 400;
+  position: relative;
+}
+
+.about-text > p {
+  font-family: "Glacial Indifference", sans-serif;
+  font-size: 17px;
+  font-weight: 400;
+  line-height: normal;
+  margin: 3% 0;
+  color: #757575;
+}
+
+.aboutSection {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  height: auto;
+}
+
+.aboutSection figure {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.aboutSection article h1 {
+  font-size: 24px;
+  line-height: normal;
+  font-weight: 400;
+  position: relative;
+}
+
+.aboutSection article {
+  font-family: "Raleway", serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+
+  /* padding-right: 20%; */
+}
+
+.aboutSection article p {
+  font-family: "Glacial Indifference", sans-serif;
+  font-size: 17px;
+  font-weight: 400;
+  line-height: normal;
+  margin: 3% 0;
+  color: #757575;
+}
+
+.aboutSection article div {
+  display: flex;
+}
+
+.about-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 50px auto;
+}
+
+.about-text {
+  width: 45%;
+}
+
+.about-text h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.about-text p {
+  font-size: 14px;
+}
+
+.explore-btn {
+  margin-top: 10px;
+  padding: 10px 20px;
+  background-color: black;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.about-image {
+  width: 45%;
+}
+
+.about-image img {
+  width: 100%;
+  height: auto;
+  background: #ddd;
+}
+
+.team-section {
+  text-align: center;
+  margin: 5% auto;
+
+  & > h2 {
+    font-family: "Raleway", Arial, sans-serif;
+    font-size: 24px;
+  }
+}
+
+.team-carousel {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.team-member {
+  width: 30%;
+  text-align: center;
+}
+
+.team-member img {
+  width: 100%;
+  height: auto;
+  background: #ddd;
+}
+
+.team-member h3 {
+  font-size: 18px;
+  margin: 10px 0;
+}
+
+.team-member p {
+  font-size: 14px;
+}

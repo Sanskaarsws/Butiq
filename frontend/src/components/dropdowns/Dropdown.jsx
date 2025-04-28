@@ -14,6 +14,13 @@ export default function DropdownMenu({ title, menuItems = [] }) {
                 <li key={idx} className={section.heading === "OPENING SOON" ? "disabled" : ""}>
                   <Link
                     to={title === "DESTINATIONS" ? `/destination${item.link}` : item.link}
+                    state={{ data: item }} // This should work in React Router v6
+                    style={{
+                      cursor:
+                        section.heading === "OPENING SOON"
+                          ? "default"
+                          : "pointer",
+                    }}
                   >
                     {item.text}
                   </Link>
