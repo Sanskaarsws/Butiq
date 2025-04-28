@@ -1,0 +1,5 @@
+.vscode
+.vercel
+*.log
+*.audit.json
+*.sh
