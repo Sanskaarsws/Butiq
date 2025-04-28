@@ -1,5 +1,5 @@
 .navigation {
-  height: 100%;
+  /* height: 12vh; */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -285,12 +285,8 @@ nav ul li a:visited:hover {
     transform: translateX(-50%);
     background-color: white;
   }
-  /* nav ul {
+  nav ul {
     flex-direction: column;
-  } */
-
-  .navLink {
-    display: none;
   }
   nav ul li {
     float: none;

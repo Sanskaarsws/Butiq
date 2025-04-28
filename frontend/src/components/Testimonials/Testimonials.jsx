@@ -27,7 +27,7 @@ const TestimonialSlider = ({
   };
 
   return (
-    <div className="w-[85%] py-10 text-center">
+    <div className="w-[85%] p-10  text-center">
       <img
         src="https://d245xcy5u3wmzt.cloudfront.net/assets/images/banners/home/plane_c.png"
         alt="Airplane Icon"
