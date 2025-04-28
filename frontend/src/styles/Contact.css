@@ -92,12 +92,22 @@
     grid-template-columns: 1fr;
   }
   .contactContainer section:nth-of-type(2) {
-    height: 50vh;
+    grid-row: 1/2;
+    /* height: 50vh; */
+
+    & > div:first-of-type {
+      height: auto;
+      margin-bottom: 2rem;
+    }
+  }
+  .contactContainer section:first-of-type {
+    grid-row: 2/3;
   }
   .contactContainer section:first-of-type h1 {
     font-size: 42px;
   }
 }
+
 @media screen and (max-width: 500px) {
   .contactContainer section:first-of-type h1 {
     font-size: 30px;
@@ -113,9 +123,7 @@
   .lebal-fullName {
     font-size: 14px;
   }
-  .form {
-    padding: 30px;
-  }
+
   .main-input {
     font-size: 14px;
   }

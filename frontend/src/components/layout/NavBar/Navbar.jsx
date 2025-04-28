@@ -37,19 +37,16 @@ export default function Navbar() {
   const [isSearchbarOpen, setIsSearchbarOpen] = useState(false);
   const inputRef = useRef(null);
 
-  const [navProps, setNavProps] = useState({
-    imageSize: "10rem",
-    linkSize: "14px",
-    btnHeight: "40px",
-  });
+  // Set more reasonable logo sizes based on viewport
+  const [logoSize, setLogoSize] = useState("14rem"); // Adjusted from 16rem to 14rem
+  const linkSize = "14px"; // Fixed size for links
+  const btnHeight = "40px"; // Fixed height for button
 
+  // Adjust the scroll factor to make logo shrinking less aggressive
   const handleScroll = useCallback(() => {
     const scrollY = window.scrollY;
-    setNavProps({
-      imageSize: `${Math.max(8, 10 - scrollY * 0.02)}rem`,
-      linkSize: `${Math.max(12, 14 - scrollY * 0.02)}px`,
-      btnHeight: `${Math.max(30, 40 - scrollY * 0.02)}px`,
-    });
+    // Adjust min size to 10rem (from 12rem) and max to 14rem (from 16rem)
+    setLogoSize(`${Math.max(10, 14 - scrollY * 0.01)}rem`);
   }, []);
 
   useEffect(() => {
@@ -57,34 +54,67 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [handleScroll]);
 
+  // Handle resize for responsive logo sizing
+  useEffect(() => {
+    const handleResize = () => {
+      // Check for tablet size range (roughly 768px to 1024px)
+      if (window.innerWidth >= 768 && window.innerWidth <= 1024) {
+        setLogoSize("10rem"); // Smaller size for tablets
+      } else if (window.innerWidth > 1024) {
+        setLogoSize("14rem"); // Full size for desktop
+      }
+    };
+
+    // Initialize size based on current viewport
+    handleResize();
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  // Close sidebar when clicking outside
+  useEffect(() => {
+    if (isNavOpen) {
+      const handleClickOutside = (event) => {
+        if (!event.target.closest("nav")) {
+          setIsNavOpen(false);
+        }
+      };
+
+      document.addEventListener("mousedown", handleClickOutside);
+      return () => {
+        document.removeEventListener("mousedown", handleClickOutside);
+      };
+    }
+  }, [isNavOpen]);
+
   return (
-    <header className="fixed top-0 left-0 right-0 bg-white shadow-md z-50">
+    <header className="sticky top-0 left-0 right-0 bg-white z-50">
       <nav className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-20">
+        <div className="flex items-center justify-between h-[10vh]">
           {/* Left Section */}
           <div className="flex items-center space-x-6">
-            <div className="relative">
-              <button
-                className="text-gray-600 hover:text-gray-900"
-                onClick={() => setIsNavOpen(!isNavOpen)}
-              >
-                {isNavOpen ? <X size={24} /> : <Menu size={24} />}
-              </button>
-              {isNavOpen && (
-                <div className="absolute top-full left-0 bg-white shadow-lg py-2 w-48 mt-2 hidden lg:block">
-                  {navbarData.sidebarLinks.map((link, index) => (
-                    <Link
-                      key={index}
-                      to={link.link}
-                      className="block px-4 py-2 text-gray-600 hover:bg-gray-100"
-                      onClick={() => setIsNavOpen(false)}
-                    >
-                      {link.text}
-                    </Link>
-                  ))}
-                </div>
-              )}
-            </div>
+            <button
+              className="text-gray-600 hover:text-gray-900"
+              onClick={() => setIsNavOpen(!isNavOpen)}
+            >
+              {isNavOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+            {isNavOpen && (
+              <div className="absolute top-full left-0 bg-white shadow-lg py-2 w-48 mt-2 hidden lg:block">
+                {navbarData.sidebarLinks.map((link, index) => (
+                  <Link
+                    key={index}
+                    to={link.link}
+                    className="block px-4 py-2 text-gray-600 hover:bg-gray-100"
+                    onClick={() => setIsNavOpen(false)}
+                  >
+                    {link.text}
+                  </Link>
+                ))}
+              </div>
+            )}
+
             <button
               onClick={() => setIsSearchbarOpen(true)}
               className="text-gray-600 hover:text-gray-900"
@@ -100,100 +130,109 @@ export default function Navbar() {
 
           {/* Center Logo - Mobile */}
           <div className="flex lg:hidden items-center justify-center">
-            <Link to="/" className="brand" style={{ width: "8rem" }}>
+            <Link to="/" className="brand">
               <img
                 src={navbarData.brandLogo}
                 alt="Logo"
-                className="h-10 object-contain"
+                className="h-10 object-contain" // Back to h-10 for better mobile fit
               />
             </Link>
           </div>
 
           {/* Center - Desktop Only */}
-          <div className="hidden lg:flex items-center space-x-8">
+          <div className="hidden lg:flex items-center justify-center h-full">
             {navbarData.links.slice(0, 2).map((link, index) => (
-              <div key={index} className="relative group">
+              <div
+                key={index}
+                className="h-full flex items-center px-2 lg:px-4 group !w-unset justify-center"
+              >
                 {link.isDropdown ? (
-                  <div className="flex items-center">
+                  <div>
                     <NavLink
                       to={link.link}
-                      className="text-gray-600 hover:text-gray-900"
-                      style={{ fontSize: navProps.linkSize }}
+                      className="text-gray-600 hover:text-gray-900 relative whitespace-nowrap"
+                      style={{ fontSize: linkSize }}
                     >
                       {link.text}
                     </NavLink>
+                    <div
+                      className="absolute top-full left-0 bg-white shadow-lg py-2 w-48 mt-1 transition-all duration-200 z-50 opacity-0 invisible group-hover:opacity-100 group-hover:visible"
+                      style={{ transitionDelay: "0.1s" }}
+                    >
+                      {hotelsAndResortsDropdown.map((item, i) => (
+                        <Link
+                          key={i}
+                          to={item.link}
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                        >
+                          {item.text}
+                        </Link>
+                      ))}
+                    </div>
                   </div>
                 ) : (
                   <NavLink
                     to={link.link}
-                    className="text-gray-600 hover:text-gray-900"
-                    style={{ fontSize: navProps.linkSize }}
+                    className="text-gray-600 hover:text-gray-900 whitespace-nowrap"
+                    style={{ fontSize: linkSize }}
                   >
                     {link.text}
                   </NavLink>
-                )}
-                {link.isDropdown && (
-                  <div className="absolute top-full left-0 bg-white shadow-lg py-2 w-48 mt-2 hidden group-hover:block hover:block transition-all duration-200">
-                    {hotelsAndResortsDropdown.map((item, i) => (
-                      <Link
-                        key={i}
-                        to={item.link}
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                      >
-                        {item.text}
-                      </Link>
-                    ))}
-                  </div>
                 )}
               </div>
             ))}
 
             {/* Logo - Desktop */}
-            <Link
-              to="/"
-              className="brand mx-8"
-              style={{ width: navProps.imageSize }}
+            <div
+              className="mx-2 lg:mx-6 flex items-center justify-center"
+              style={{ width: logoSize, transition: "width 0.3s ease" }}
             >
-              <img
-                src={navbarData.brandLogo}
-                alt="Logo"
-                className="h-12 object-contain"
-              />
-            </Link>
+              <Link to="/" className="w-full flex justify-center">
+                <img
+                  src={navbarData.brandLogo}
+                  alt="Logo"
+                  className="mx-auto h-auto w-full max-w-full" // Added max-w-full to prevent overflow
+                />
+              </Link>
+            </div>
 
             {navbarData.links.slice(2).map((link, index) => (
-              <div key={index} className="relative group">
+              <div
+                key={index}
+                className="h-full flex items-center px-2 lg:px-4 group !w-unset justify-center"
+              >
                 {link.isDropdown ? (
-                  <div className="flex items-center">
+                  <div>
                     <NavLink
                       to={link.link}
-                      className="text-gray-600 hover:text-gray-900"
-                      style={{ fontSize: navProps.linkSize }}
+                      className="text-gray-600 hover:text-gray-900 relative whitespace-nowrap"
+                      style={{ fontSize: linkSize }}
                     >
                       {link.text}
                     </NavLink>
+                    <div
+                      className="absolute top-full left-0 bg-white shadow-lg py-2 w-48 mt-1 transition-all duration-200 z-50 opacity-0 invisible group-hover:opacity-100 group-hover:visible"
+                      style={{ transitionDelay: "0.1s" }}
+                    >
+                      {destinationsDropdown.map((item, i) => (
+                        <Link
+                          key={i}
+                          to={item.link}
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                        >
+                          {item.text}
+                        </Link>
+                      ))}
+                    </div>
                   </div>
                 ) : (
                   <NavLink
                     to={link.link}
-                    className="text-gray-600 hover:text-gray-900"
-                    style={{ fontSize: navProps.linkSize }}
+                    className="text-gray-600 hover:text-gray-900 whitespace-nowrap"
+                    style={{ fontSize: linkSize }}
                   >
                     {link.text}
                   </NavLink>
-                )}
-                {link.isDropdown && (
-                  <div className="absolute top-full left-0 bg-white shadow-lg py-2 w-48 mt-2 hidden group-hover:block hover:block transition-all duration-200">
-                    {destinationsDropdown.map((item, i) => (
-                      <Link
-                        key={i}
-                        to={item.link}
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                      >
-                        {item.text}
-                      </Link>
-                    ))}
-                  </div>
                 )}
               </div>
             ))}
@@ -203,15 +242,15 @@ export default function Navbar() {
           <div className="flex items-center space-x-6">
             <Link
               to="/book"
-              className="bg-black text-white px-6 hidden lg:flex items-center justify-center"
-              style={{ height: navProps.btnHeight }}
+              className="bg-black text-white px-4 lg:px-6 hidden lg:flex items-center justify-center whitespace-nowrap"
+              style={{ height: btnHeight }}
             >
               RESERVE
             </Link>
             {/* Mobile Reserve Button */}
             <Link
               to="/book"
-              className="bg-black text-white px-4 py-2 text-sm lg:hidden flex items-center justify-center"
+              className="bg-black text-white px-4 py-2 text-sm lg:hidden flex items-center justify-center whitespace-nowrap"
             >
               BOOK
             </Link>
@@ -242,7 +281,7 @@ export default function Navbar() {
                     {link.isDropdown ? (
                       <>
                         <button
-                          className="w-full text-left px-4 py-2 text-gray-600 hover:bg-gray-100"
+                          className="w-full text-left px-4 py-2 text-gray-600 hover:bg-gray-100 whitespace-nowrap"
                           onClick={() =>
                             setIsThisDropdownOpen(!isThisDropdownOpen)
                           }
@@ -270,7 +309,7 @@ export default function Navbar() {
                     ) : (
                       <Link
                         to={link.link}
-                        className="block px-4 py-2 text-gray-600 hover:bg-gray-100"
+                        className="block px-4 py-2 text-gray-600 hover:bg-gray-100 whitespace-nowrap"
                         onClick={() => setIsNavOpen(false)}
                       >
                         {link.text}
