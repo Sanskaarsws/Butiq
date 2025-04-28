@@ -22,13 +22,15 @@
 .video_container {
   & > video {
     object-fit: cover;
-    height: 900px;
+    /* height: 900px; */
+    height: 90vh;
     width: 100%;
   }
 }
 
 .aboutSection {
-  margin: 5% 4rem 0;
+  margin: 5% 4rem;
+
   display: grid;
   grid-template-columns: 1fr 1fr;
   height: auto;
@@ -134,7 +136,7 @@
     height: 40rem;
 
     & figure {
-      margin-inline: 4rem;
+      margin-inline: 4vw;
       height: 38rem;
       position: relative;
 
@@ -187,7 +189,7 @@
 
 .arrow {
   position: absolute;
-  top: 45%;
+  top: 50%;
   transform: translateY(-50%);
   z-index: 10;
   cursor: pointer;
@@ -298,15 +300,25 @@
   .aboutSection {
     display: grid;
     grid-template-columns: 1fr;
-    min-height: 100vh;
+    min-height: auto;
+    margin-inline: 2rem;
   }
 
   .aboutSection article {
     grid-row: 2/3;
-    padding: 5%;
+    margin-block: 5%;
+    margin-right: 0;
   }
   .aboutSection figure {
     grid-row: 1/2;
+  }
+
+  .locations_container {
+    & > div {
+      & figure {
+        height: 34rem;
+      }
+    }
   }
 }
 
@@ -333,9 +345,6 @@
   .aboutSection article p {
     margin: 5% 0;
   }
-  .aboutSection figure img {
-    height: 60%;
-  }
 
   .aboutSection article p {
     font-size: 14px;
@@ -345,14 +354,22 @@
     margin-right: 0%;
   }
 
-  .aboutSection article {
-    padding: 5%;
-  }
-
   .aboutSection article div {
     flex-direction: column;
     gap: 1.5rem;
     width: 100%;
+  }
+
+  .locations_container {
+    & > div {
+      & figure {
+        height: 28rem;
+      }
+    }
+
+    & .slick-slider {
+      height: auto;
+    }
   }
 }
 
