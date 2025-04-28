@@ -128,7 +128,7 @@ export default function Home() {
 
       {/* Testimonials */}
       <div className="bg-gray-100 flex items-center justify-center my-[5rem]">
-        <TestimonialSlider testimonials={testimonials} autoplaySpeed={3000} showArrows={true}  />
+        <TestimonialSlider testimonials={testimonials} autoplaySpeed={3000} showArrows={true} />
       </div>
 
       {/* Destinations */}

@@ -1,55 +1,39 @@
+import "./Navbar.css";
 import { useState, useRef, useEffect, useCallback } from "react";
-import { Menu, X, Search, Globe } from "lucide-react";
 import { Link, NavLink } from "react-router-dom";
-import butiqForYouLogo from "../../../assets/images/ButiqBlack.svg";
-
-const navbarData = {
-  brandLogo: butiqForYouLogo,
-  links: [
-    { text: "HOTELS & RESORTS", link: "/hotels", isDropdown: true },
-    { text: "RESIDENCES", link: "/residences" },
-    { text: "DESTINATIONS", link: "/destinations", isDropdown: true },
-    { text: "EXPERIENCES", link: "/experiences" },
-  ],
-  sidebarLinks: [
-    { text: "About Us", link: "/about-us" },
-    { text: "Partner With Us", link: "/partner-with-us" },
-    { text: "Offers", link: "/offers" },
-    { text: "Stories", link: "/stories" },
-    { text: "Contact Us", link: "/contact" },
-  ],
-};
-
-const hotelsAndResortsDropdown = [
-  { text: "Luxury Hotels", link: "/hotels/luxury" },
-  { text: "Beach Resorts", link: "/hotels/beach" },
-  { text: "Mountain Retreats", link: "/hotels/mountain" },
-];
-
-const destinationsDropdown = [
-  { text: "Asia", link: "/destinations/asia" },
-  { text: "Europe", link: "/destinations/europe" },
-  { text: "Americas", link: "/destinations/americas" },
-];
+import {
+  navbarData,
+  destinationsDropdown,
+  hotelsAndResortsDropdown,
+} from "@/utils/Constant";
+import { Button } from "@material-tailwind/react";
+import DropdownMenu from "@/components/dropdowns/Dropdown";
+import MultilanguageInput from "@/components/ui/language-input/MultilanguageInput";
+import crossIcon from "@/assets/images/cross-svgrepo-com.svg";
 
 export default function Navbar() {
   const [isNavOpen, setIsNavOpen] = useState(false);
   const [isSearchbarOpen, setIsSearchbarOpen] = useState(false);
   const inputRef = useRef(null);
+  const sidebarRef = useRef(null);
+  const navRef = useRef();
 
   const [navProps, setNavProps] = useState({
     imageSize: "10rem",
     linkSize: "14px",
-    btnHeight: "40px",
+    btnProps: { height: "40px", font: "16px", padding: "unset" },
   });
 
   const handleScroll = useCallback(() => {
     const scrollY = window.scrollY;
-    setNavProps({
+    setNavProps(() => ({
       imageSize: `${Math.max(8, 10 - scrollY * 0.02)}rem`,
       linkSize: `${Math.max(12, 14 - scrollY * 0.02)}px`,
-      btnHeight: `${Math.max(30, 40 - scrollY * 0.02)}px`,
-    });
+      btnProps: {
+        height: `${Math.max(30, 40 - scrollY * 0.02)}px`,
+        font: `${Math.max(12, 16 - scrollY * 0.02)}px`,
+      },
+    }));
   }, []);
 
   useEffect(() => {
@@ -58,261 +42,167 @@ export default function Navbar() {
   }, [handleScroll]);
 
   return (
-    <header className="fixed top-0 left-0 right-0 bg-white shadow-md z-50">
-      <nav className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-20">
-          {/* Left Section */}
-          <div className="flex items-center space-x-6">
-            <div className="relative">
-              <button
-                className="text-gray-600 hover:text-gray-900"
-                onClick={() => setIsNavOpen(!isNavOpen)}
-              >
-                {isNavOpen ? <X size={24} /> : <Menu size={24} />}
-              </button>
-              {isNavOpen && (
-                <div className="absolute top-full left-0 bg-white shadow-lg py-2 w-48 mt-2 hidden lg:block">
-                  {navbarData.sidebarLinks.map((link, index) => (
-                    <Link
-                      key={index}
-                      to={link.link}
-                      className="block px-4 py-2 text-gray-600 hover:bg-gray-100"
-                      onClick={() => setIsNavOpen(false)}
-                    >
-                      {link.text}
-                    </Link>
-                  ))}
-                </div>
-              )}
+    <header className="navigation" ref={navRef}>
+      <nav className="flex justify-between w-full items-center">
+        {/* Sidebar & Language Input */}
+        <div ref={sidebarRef} className="absolute left-0 flex items-center z-8">
+          {/* Burger Menu */}
+          <figure className="burgerIcon_dropDown_container">
+            <svg
+              id="burgerIcon"
+              width="24"
+              height="18"
+              className="cursor-pointer"
+            >
+              <path
+                d="M1 1H23"
+                stroke="#808080"
+                strokeWidth="1"
+                strokeLinecap="round"
+              />
+              <path
+                d="M1 9H23"
+                stroke="#808080"
+                strokeWidth="1"
+                strokeLinecap="round"
+              />
+              <path
+                d="M1 17H23"
+                stroke="#808080"
+                strokeWidth="1"
+                strokeLinecap="round"
+              />
+            </svg>
+            <div className="sidebar">
+              <ul className="p-4">
+                {[
+                  { label: "About Us", path: "/about" },
+                  { label: "Partner With Us", path: "/partner-with-us" },
+                  { label: "Offers", path: "#" },
+                  { label: "Stories", path: "#" },
+                  { label: "Contact Us", path: "/contact" },
+                ].map(({ label, path }, i) => (
+                  <li key={i}>
+                    <Link to={path}>{label}</Link>
+                  </li>
+                ))}
+              </ul>
             </div>
-            <button
-              onClick={() => setIsSearchbarOpen(true)}
-              className="text-gray-600 hover:text-gray-900"
-            >
-              <Search size={20} />
-            </button>
-            <select className="text-sm text-gray-600 border-none focus:ring-0 cursor-pointer">
-              <option value="en">EN</option>
-              <option value="fr">FR</option>
-              <option value="de">DE</option>
-            </select>
-          </div>
+          </figure>
 
-          {/* Center Logo - Mobile */}
-          <div className="flex lg:hidden items-center justify-center">
-            <Link to="/" className="brand" style={{ width: "8rem" }}>
-              <img
-                src={navbarData.brandLogo}
-                alt="Logo"
-                className="h-10 object-contain"
-              />
-            </Link>
-          </div>
-
-          {/* Center - Desktop Only */}
-          <div className="hidden lg:flex items-center space-x-8">
-            {navbarData.links.slice(0, 2).map((link, index) => (
-              <div key={index} className="relative group">
-                {link.isDropdown ? (
-                  <div className="flex items-center">
-                    <NavLink
-                      to={link.link}
-                      className="text-gray-600 hover:text-gray-900"
-                      style={{ fontSize: navProps.linkSize }}
-                    >
-                      {link.text}
-                    </NavLink>
-                  </div>
-                ) : (
-                  <NavLink
-                    to={link.link}
-                    className="text-gray-600 hover:text-gray-900"
-                    style={{ fontSize: navProps.linkSize }}
-                  >
-                    {link.text}
-                  </NavLink>
-                )}
-                {link.isDropdown && (
-                  <div className="absolute top-full left-0 bg-white shadow-lg py-2 w-48 mt-2 hidden group-hover:block hover:block transition-all duration-200">
-                    {hotelsAndResortsDropdown.map((item, i) => (
-                      <Link
-                        key={i}
-                        to={item.link}
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                      >
-                        {item.text}
-                      </Link>
-                    ))}
-                  </div>
-                )}
-              </div>
-            ))}
-
-            {/* Logo - Desktop */}
-            <Link
-              to="/"
-              className="brand mx-8"
-              style={{ width: navProps.imageSize }}
-            >
-              <img
-                src={navbarData.brandLogo}
-                alt="Logo"
-                className="h-12 object-contain"
-              />
-            </Link>
-
-            {navbarData.links.slice(2).map((link, index) => (
-              <div key={index} className="relative group">
-                {link.isDropdown ? (
-                  <div className="flex items-center">
-                    <NavLink
-                      to={link.link}
-                      className="text-gray-600 hover:text-gray-900"
-                      style={{ fontSize: navProps.linkSize }}
-                    >
-                      {link.text}
-                    </NavLink>
-                  </div>
-                ) : (
-                  <NavLink
-                    to={link.link}
-                    className="text-gray-600 hover:text-gray-900"
-                    style={{ fontSize: navProps.linkSize }}
-                  >
-                    {link.text}
-                  </NavLink>
-                )}
-                {link.isDropdown && (
-                  <div className="absolute top-full left-0 bg-white shadow-lg py-2 w-48 mt-2 hidden group-hover:block hover:block transition-all duration-200">
-                    {destinationsDropdown.map((item, i) => (
-                      <Link
-                        key={i}
-                        to={item.link}
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                      >
-                        {item.text}
-                      </Link>
-                    ))}
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
-
-          {/* Right Section */}
-          <div className="flex items-center space-x-6">
-            <Link
-              to="/book"
-              className="bg-black text-white px-6 hidden lg:flex items-center justify-center"
-              style={{ height: navProps.btnHeight }}
-            >
-              RESERVE
-            </Link>
-            {/* Mobile Reserve Button */}
-            <Link
-              to="/book"
-              className="bg-black text-white px-4 py-2 text-sm lg:hidden flex items-center justify-center"
-            >
-              BOOK
-            </Link>
+          <span className="text-sm mx-7">
+            <MultilanguageInput />
+          </span>
+          {/* Search Input */}
+          <div className="searchInputBox relative">
+            <figure className="searchIcon">
+              <svg
+                id="searchIconId"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                onMouseEnter={() => inputRef.current?.focus()}
+              >
+                <path
+                  d="M21 21L16.657 16.657M16.657 16.657C19.657 13.657 19.657 8.343 16.657 5.343C13.657 2.343 8.343 2.343 5.343 5.343C2.343 8.343 2.343 13.657 5.343 16.657C8.343 19.657 13.657 19.657 16.657 16.657Z"
+                  stroke="#808080"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </figure>
+            <input
+              ref={inputRef}
+              className="searchInput searchInput-alt"
+              type="text"
+              required
+            />
+            <span className="searchInput-border searchInput-border-alt"></span>
           </div>
         </div>
 
-        {/* Mobile Navigation */}
+        {/* Searchbar Overlay */}
         <div
-          className={`${
-            isNavOpen ? "max-h-screen" : "max-h-0"
-          } lg:hidden overflow-hidden transition-all duration-300`}
+          className={`searchbar ${
+            isSearchbarOpen ? "openSearchbar" : "closeSearchbar"
+          }`}
         >
-          <div className="py-4 space-y-4">
-            {[...navbarData.links, ...navbarData.sidebarLinks].map(
-              (link, index) => {
-                // For mobile, we'll keep the click functionality
-                const [isThisDropdownOpen, setIsThisDropdownOpen] =
-                  useState(false);
-                const dropdownItems =
-                  link.text === "HOTELS & RESORTS"
-                    ? hotelsAndResortsDropdown
-                    : link.text === "DESTINATIONS"
-                    ? destinationsDropdown
-                    : [];
-
-                return (
-                  <div key={index}>
-                    {link.isDropdown ? (
-                      <>
-                        <button
-                          className="w-full text-left px-4 py-2 text-gray-600 hover:bg-gray-100"
-                          onClick={() =>
-                            setIsThisDropdownOpen(!isThisDropdownOpen)
-                          }
-                        >
-                          {link.text}
-                        </button>
-                        {isThisDropdownOpen && (
-                          <div className="bg-gray-50 py-2">
-                            {dropdownItems.map((item, i) => (
-                              <Link
-                                key={i}
-                                to={item.link}
-                                className="block px-8 py-2 text-sm text-gray-600 hover:bg-gray-100"
-                                onClick={() => {
-                                  setIsThisDropdownOpen(false);
-                                  setIsNavOpen(false);
-                                }}
-                              >
-                                {item.text}
-                              </Link>
-                            ))}
-                          </div>
-                        )}
-                      </>
-                    ) : (
-                      <Link
-                        to={link.link}
-                        className="block px-4 py-2 text-gray-600 hover:bg-gray-100"
-                        onClick={() => setIsNavOpen(false)}
-                      >
-                        {link.text}
-                      </Link>
-                    )}
-                  </div>
-                );
-              }
-            )}
+          <div className="relative flex">
+            <div className="bg-white w-[30rem] h-screen p-8">
+              <div className="flex justify-end">
+                <img
+                  src={crossIcon}
+                  alt="Close"
+                  onClick={() => setIsSearchbarOpen(false)}
+                />
+              </div>
+              <div className="mt-8">
+                <input
+                  className="w-full border-b border-gray-400 bg-transparent"
+                  placeholder="Enter Search Term"
+                  type="text"
+                />
+              </div>
+              <div className="flex justify-end mt-4">
+                <Button className="rounded-none px-6 py-2">SEARCH</Button>
+              </div>
+            </div>
           </div>
         </div>
-      </nav>
 
-      {/* Search Overlay */}
-      {isSearchbarOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 z-50">
-          <div className="bg-white w-full max-w-md h-screen p-8">
-            <div className="flex justify-end">
-              <button
-                onClick={() => setIsSearchbarOpen(false)}
-                className="text-gray-600 hover:text-gray-900"
+        {/* Navigation Links */}
+        <ul className={`nav-list ${isNavOpen ? "py-2" : "hidden"}`}>
+          {navbarData.links.map((link, index) => {
+            if (index === 2) {
+              return (
+                <li
+                  key="brand"
+                  className="brand mx-4"
+                  style={{ width: navProps.imageSize }}
+                >
+                  <Link to="/">
+                    <img src={navbarData.brandLogo} alt="Vistaar Logo" />
+                  </Link>
+                </li>
+              );
+            }
+            const isDropdown =
+              link.text === "HOTELS & RESORTS" || link.text === "DESTINATIONS";
+            return (
+              <li
+                key={index}
+                className={`mx-4 ${isDropdown ? "dropdown-container" : ""}`}
               >
-                <X size={24} />
-              </button>
-            </div>
-            <div className="mt-8">
-              <input
-                ref={inputRef}
-                type="text"
-                placeholder="Enter search term..."
-                className="w-full border-b border-gray-300 py-2 focus:outline-none focus:border-black"
-                autoFocus
-              />
-            </div>
-            <div className="flex justify-end mt-6">
-              <button className="px-6 py-2 bg-black text-white hover:bg-gray-800 transition-colors">
-                SEARCH
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+                {isDropdown ? (
+                  <DropdownMenu
+                    title={link.text}
+                    menuItems={
+                      link.text === "HOTELS & RESORTS"
+                        ? hotelsAndResortsDropdown
+                        : destinationsDropdown
+                    }
+                  />
+                ) : (
+                  <NavLink
+                    to={link.link}
+                    onClick={() => setIsNavOpen(false)}
+                    className="text-sm"
+                  >
+                    {link.text}
+                  </NavLink>
+                )}
+              </li>
+            );
+          })}
+          {/* Reserve Button */}
+          <li className="reserveBtn">
+            <Link to="/book">
+              <Button className="rounded-none px-6 py-2">{`RESERVE`}</Button>
+            </Link>
+          </li>
+        </ul>
+      </nav>
     </header>
   );
 }
