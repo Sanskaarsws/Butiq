@@ -42,23 +42,28 @@ const hotels = [
 
 const testimonials = [
   {
-    quote: "The Postcard Hotel has reset some of the default settings of the standard hotel experience.",
+    quote:
+      "The Postcard Hotel has reset some of the default settings of the standard hotel experience.",
     author: "Condé Nast Traveller",
   },
   {
-    quote: "A stylish luxury hotel in Thimphu’s northern outskirts is where illustrious Bhutanese and travellers alike are finding their happy place.",
+    quote:
+      "A stylish luxury hotel in Thimphu’s northern outskirts is where illustrious Bhutanese and travellers alike are finding their happy place.",
     author: "Nat Geo Traveller India",
   },
   {
-    quote: "As a hotelier, Kapil Chopra has spent two decades at the frontline of hospitality. Now he’s juicing all that experience to launch his own brand of luxury hotels.",
+    quote:
+      "As a hotelier, Kapil Chopra has spent two decades at the frontline of hospitality. Now he’s juicing all that experience to launch his own brand of luxury hotels.",
     author: "Condé Nast Traveller",
   },
   {
-    quote: "We believe guests want to stay in a place where the hotel does the thinking for them, where they get the simple things right, yet offer fantastic spaces for them to relax, meet like-minded people and experience local culture.",
+    quote:
+      "We believe guests want to stay in a place where the hotel does the thinking for them, where they get the simple things right, yet offer fantastic spaces for them to relax, meet like-minded people and experience local culture.",
     author: "The Economic Times",
   },
   {
-    quote: "The Postcard, as a brand, is more than just a chain of small hotels. It is a movement to bring back the old way to holiday, where you awaken to a new way of seeing with gimmick-free holidays that are effortlessly merged with local authentic experiences and regional vernacular design.",
+    quote:
+      "The Postcard, as a brand, is more than just a chain of small hotels. It is a movement to bring back the old way to holiday, where you awaken to a new way of seeing with gimmick-free holidays that are effortlessly merged with local authentic experiences and regional vernacular design.",
     author: "Sunday Financial Express",
   },
 ];
@@ -94,7 +99,11 @@ export default function Home() {
           {[heroImage_1, heroImage_2, heroImage_3].map((image, index) => (
             <div key={index}>
               <figure>
-                <img src={image} alt={`Hero banner ${index + 1}`} loading="lazy" />
+                <img
+                  src={image}
+                  alt={`Hero banner ${index + 1}`}
+                  loading="lazy"
+                />
               </figure>
             </div>
           ))}
@@ -105,17 +114,31 @@ export default function Home() {
       <section className="welcomeSection">
         <h2>Butiq Stays</h2>
         <p>
-          Handpicked spaces that curate unique and personalised experiences across India. Each stay brings a different flavor yet follows the same principle—combining art, nature, and wellness. Crafted for evolved travelers, our Butiq Stays offer serene indulgence, cultural exploration, and transformative wellness experiences.
+          Handpicked spaces that curate unique and personalised experiences
+          across India. Each stay brings a different flavor yet follows the same
+          principle—combining art, nature, and wellness. Crafted for evolved
+          travelers, our Butiq Stays offer serene indulgence, cultural
+          exploration, and transformative wellness experiences.
         </p>
-        <article>
-          {[butlerOnCallImg, regionalCuisineImg, PetsWelcomedImg].map((img, index) => (
-            <div key={index}>
-              <figure>
-                <img src={img} alt="Feature Icon" />
-              </figure>
-              <p>{["BUTLER ON CALL", "AUTHENTIC REGIONAL CUISINE", "PETS WELCOME EVERYWHERE"][index]}</p>
-            </div>
-          ))}
+        <article className="[@media(max-width:425px)]:flex-col items-center">
+          {[butlerOnCallImg, regionalCuisineImg, PetsWelcomedImg].map(
+            (img, index) => (
+              <div key={index} className="w-auto md:w-[25%] text-center">
+                <figure className="w-[4rem]">
+                  <img src={img} alt="Feature Icon" />
+                </figure>
+                <p className="text-[12px] md:text-sm font-raleway font-bold uppercase ">
+                  {
+                    [
+                      "BUTLER ON CALL",
+                      "AUTHENTIC REGIONAL CUISINE",
+                      "PETS WELCOME EVERYWHERE",
+                    ][index]
+                  }
+                </p>
+              </div>
+            )
+          )}
         </article>
       </section>
 
@@ -128,7 +151,11 @@ export default function Home() {
 
       {/* Testimonials */}
       <div className="bg-gray-100 flex items-center justify-center my-[5rem]">
-        <TestimonialSlider testimonials={testimonials} autoplaySpeed={3000} showArrows={true} />
+        <TestimonialSlider
+          testimonials={testimonials}
+          autoplaySpeed={3000}
+          showArrows={true}
+        />
       </div>
 
       {/* Destinations */}
@@ -151,11 +178,13 @@ export default function Home() {
       </section>
 
       {/* Experiences */}
-      <section className="aboutSection">
+      <section className="experienceSection">
         <article>
           <h1>EXPERIENCES</h1>
           <p>
-            Customize your vacation with activities that match your interests. Whether exploring art, food, history, or leisure, we offer tailor-made experiences to make your journey uniquely yours.
+            Customize your vacation with activities that match your interests.
+            Whether exploring art, food, history, or leisure, we offer
+            tailor-made experiences to make your journey uniquely yours.
           </p>
           <div>
             <span className="underline text-sm cursor-pointer">EXPLORE</span>
