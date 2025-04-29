@@ -47,6 +47,7 @@ export default function Navbar() {
         {/* Sidebar & Language Input */}
         <div ref={sidebarRef} className="absolute left-0 flex items-center z-8">
           {/* Burger Menu */}
+          
           <figure className="burgerIcon_dropDown_container">
             <svg
               id="burgerIcon"
@@ -89,7 +90,6 @@ export default function Navbar() {
               </ul>
             </div>
           </figure>
-
           <span className="text-sm mx-7">
             <MultilanguageInput />
           </span>
