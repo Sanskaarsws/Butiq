@@ -18,22 +18,16 @@ export default function Navbar() {
   const sidebarRef = useRef(null);
   const navRef = useRef();
 
-  const [navProps, setNavProps] = useState({
-    imageSize: "10rem",
-    linkSize: "14px",
-    btnProps: { height: "40px", font: "16px", padding: "unset" },
-  });
+  // Set more reasonable logo sizes based on viewport
+  const [logoSize, setLogoSize] = useState("14rem"); // Adjusted from 16rem to 14rem
+  const linkSize = "14px"; // Fixed size for links
+  const btnHeight = "40px"; // Fixed height for button
 
+  // Adjust the scroll factor to make logo shrinking less aggressive
   const handleScroll = useCallback(() => {
     const scrollY = window.scrollY;
-    setNavProps(() => ({
-      imageSize: `${Math.max(8, 10 - scrollY * 0.02)}rem`,
-      linkSize: `${Math.max(12, 14 - scrollY * 0.02)}px`,
-      btnProps: {
-        height: `${Math.max(30, 40 - scrollY * 0.02)}px`,
-        font: `${Math.max(12, 16 - scrollY * 0.02)}px`,
-      },
-    }));
+    // Adjust min size to 10rem (from 12rem) and max to 14rem (from 16rem)
+    setLogoSize(`${Math.max(10, 14 - scrollY * 0.01)}rem`);
   }, []);
 
   useEffect(() => {
@@ -41,167 +35,273 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [handleScroll]);
 
+  // Handle resize for responsive logo sizing
+  useEffect(() => {
+    const handleResize = () => {
+      // Check for tablet size range (roughly 768px to 1024px)
+      if (window.innerWidth >= 768 && window.innerWidth <= 1024) {
+        setLogoSize("10rem"); // Smaller size for tablets
+      } else if (window.innerWidth > 1024) {
+        setLogoSize("14rem"); // Full size for desktop
+      }
+    };
+
+    // Initialize size based on current viewport
+    handleResize();
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  // Close sidebar when clicking outside
+  useEffect(() => {
+    if (isNavOpen) {
+      const handleClickOutside = (event) => {
+        if (!event.target.closest("nav")) {
+          setIsNavOpen(false);
+        }
+      };
+
+      document.addEventListener("mousedown", handleClickOutside);
+      return () => {
+        document.removeEventListener("mousedown", handleClickOutside);
+      };
+    }
+  }, [isNavOpen]);
+
   return (
-    <header className="navigation" ref={navRef}>
-      <nav className="flex justify-between w-full items-center">
-        {/* Sidebar & Language Input */}
-        <div ref={sidebarRef} className="absolute left-0 flex items-center z-8">
-          {/* Burger Menu */}
-          <figure className="burgerIcon_dropDown_container">
-            <svg
-              id="burgerIcon"
-              width="24"
-              height="18"
-              className="cursor-pointer"
+    <header className="sticky top-0 left-0 right-0 bg-white z-50">
+      <nav className="container mx-auto px-4">
+        <div className="flex items-center justify-between h-[10vh]">
+          {/* Left Section */}
+          <div className="flex items-center space-x-6">
+            <button
+              className="text-gray-600 hover:text-gray-900"
+              onClick={() => setIsNavOpen(!isNavOpen)}
             >
-              <path
-                d="M1 1H23"
-                stroke="#808080"
-                strokeWidth="1"
-                strokeLinecap="round"
-              />
-              <path
-                d="M1 9H23"
-                stroke="#808080"
-                strokeWidth="1"
-                strokeLinecap="round"
-              />
-              <path
-                d="M1 17H23"
-                stroke="#808080"
-                strokeWidth="1"
-                strokeLinecap="round"
-              />
-            </svg>
-            <div className="sidebar">
-              <ul className="p-4">
-                {[
-                  { label: "About Us", path: "/about" },
-                  { label: "Partner With Us", path: "/partner-with-us" },
-                  { label: "Offers", path: "#" },
-                  { label: "Stories", path: "#" },
-                  { label: "Contact Us", path: "/contact" },
-                ].map(({ label, path }, i) => (
-                  <li key={i}>
-                    <Link to={path}>{label}</Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </figure>
-
-          <span className="text-sm mx-7">
-            <MultilanguageInput />
-          </span>
-          {/* Search Input */}
-          <div className="searchInputBox relative">
-            <figure className="searchIcon">
-              <svg
-                id="searchIconId"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                onMouseEnter={() => inputRef.current?.focus()}
-              >
-                <path
-                  d="M21 21L16.657 16.657M16.657 16.657C19.657 13.657 19.657 8.343 16.657 5.343C13.657 2.343 8.343 2.343 5.343 5.343C2.343 8.343 2.343 13.657 5.343 16.657C8.343 19.657 13.657 19.657 16.657 16.657Z"
-                  stroke="#808080"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </figure>
-            <input
-              ref={inputRef}
-              className="searchInput searchInput-alt"
-              type="text"
-              required
-            />
-            <span className="searchInput-border searchInput-border-alt"></span>
-          </div>
-        </div>
-
-        {/* Searchbar Overlay */}
-        <div
-          className={`searchbar ${
-            isSearchbarOpen ? "openSearchbar" : "closeSearchbar"
-          }`}
-        >
-          <div className="relative flex">
-            <div className="bg-white w-[30rem] h-screen p-8">
-              <div className="flex justify-end">
-                <img
-                  src={crossIcon}
-                  alt="Close"
-                  onClick={() => setIsSearchbarOpen(false)}
-                />
-              </div>
-              <div className="mt-8">
-                <input
-                  className="w-full border-b border-gray-400 bg-transparent"
-                  placeholder="Enter Search Term"
-                  type="text"
-                />
-              </div>
-              <div className="flex justify-end mt-4">
-                <Button className="rounded-none px-6 py-2">SEARCH</Button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Navigation Links */}
-        <ul className={`nav-list ${isNavOpen ? "py-2" : "hidden"}`}>
-          {navbarData.links.map((link, index) => {
-            if (index === 2) {
-              return (
-                <li
-                  key="brand"
-                  className="brand mx-4"
-                  style={{ width: navProps.imageSize }}
-                >
-                  <Link to="/">
-                    <img src={navbarData.brandLogo} alt="Vistaar Logo" />
+              {isNavOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+            {isNavOpen && (
+              <div className="absolute top-full left-0 bg-white shadow-lg py-2 w-48 mt-2 hidden lg:block">
+                {navbarData.sidebarLinks.map((link, index) => (
+                  <Link
+                    key={index}
+                    to={link.link}
+                    className="block px-4 py-2 text-gray-600 hover:bg-gray-100"
+                    onClick={() => setIsNavOpen(false)}
+                  >
+                    {link.text}
                   </Link>
-                </li>
-              );
-            }
-            const isDropdown =
-              link.text === "HOTELS & RESORTS" || link.text === "DESTINATIONS";
-            return (
-              <li
+                ))}
+              </div>
+            )}
+
+            <button
+              onClick={() => setIsSearchbarOpen(true)}
+              className="text-gray-600 hover:text-gray-900"
+            >
+              <Search size={20} />
+            </button>
+            <select className="text-sm text-gray-600 border-none focus:ring-0 cursor-pointer">
+              <option value="en">EN</option>
+              <option value="fr">FR</option>
+              <option value="de">DE</option>
+            </select>
+          </div>
+
+          {/* Center Logo - Mobile */}
+          <div className="flex lg:hidden items-center justify-center">
+            <Link to="/" className="brand">
+              <img
+                src={navbarData.brandLogo}
+                alt="Logo"
+                className="h-10 object-contain" // Back to h-10 for better mobile fit
+              />
+            </Link>
+          </div>
+
+          {/* Center - Desktop Only */}
+          <div className="hidden lg:flex items-center justify-center h-full">
+            {navbarData.links.slice(0, 2).map((link, index) => (
+              <div
                 key={index}
-                className={`mx-4 ${isDropdown ? "dropdown-container" : ""}`}
+                className="h-full flex items-center px-2 lg:px-4 group !w-unset justify-center"
               >
-                {isDropdown ? (
-                  <DropdownMenu
-                    title={link.text}
-                    menuItems={
-                      link.text === "HOTELS & RESORTS"
-                        ? hotelsAndResortsDropdown
-                        : destinationsDropdown
-                    }
-                  />
+                {link.isDropdown ? (
+                  <div>
+                    <NavLink
+                      to={link.link}
+                      className="text-gray-600 hover:text-gray-900 relative whitespace-nowrap"
+                      style={{ fontSize: linkSize }}
+                    >
+                      {link.text}
+                    </NavLink>
+                    <div
+                      className="absolute top-full left-0 bg-white shadow-lg py-2 w-48 mt-1 transition-all duration-200 z-50 opacity-0 invisible group-hover:opacity-100 group-hover:visible"
+                      style={{ transitionDelay: "0.1s" }}
+                    >
+                      {hotelsAndResortsDropdown.map((item, i) => (
+                        <Link
+                          key={i}
+                          to={item.link}
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                        >
+                          {item.text}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
                 ) : (
                   <NavLink
                     to={link.link}
-                    onClick={() => setIsNavOpen(false)}
-                    className="text-sm"
+                    className="text-gray-600 hover:text-gray-900 whitespace-nowrap"
+                    style={{ fontSize: linkSize }}
                   >
                     {link.text}
                   </NavLink>
                 )}
-              </li>
-            );
-          })}
-          {/* Reserve Button */}
-          <li className="reserveBtn">
-            <Link to="/book">
-              <Button className="rounded-none px-6 py-2">{`RESERVE`}</Button>
+              </div>
+            ))}
+
+            {/* Logo - Desktop */}
+            <div
+              className="mx-2 lg:mx-6 flex items-center justify-center"
+              style={{ width: logoSize, transition: "width 0.3s ease" }}
+            >
+              <Link to="/" className="w-full flex justify-center">
+                <img
+                  src={navbarData.brandLogo}
+                  alt="Logo"
+                  className="mx-auto h-auto w-full max-w-full" // Added max-w-full to prevent overflow
+                />
+              </Link>
+            </div>
+
+            {navbarData.links.slice(2).map((link, index) => (
+              <div
+                key={index}
+                className="h-full flex items-center px-2 lg:px-4 group !w-unset justify-center"
+              >
+                {link.isDropdown ? (
+                  <div>
+                    <NavLink
+                      to={link.link}
+                      className="text-gray-600 hover:text-gray-900 relative whitespace-nowrap"
+                      style={{ fontSize: linkSize }}
+                    >
+                      {link.text}
+                    </NavLink>
+                    <div
+                      className="absolute top-full left-0 bg-white shadow-lg py-2 w-48 mt-1 transition-all duration-200 z-50 opacity-0 invisible group-hover:opacity-100 group-hover:visible"
+                      style={{ transitionDelay: "0.1s" }}
+                    >
+                      {destinationsDropdown.map((item, i) => (
+                        <Link
+                          key={i}
+                          to={item.link}
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                        >
+                          {item.text}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                ) : (
+                  <NavLink
+                    to={link.link}
+                    className="text-gray-600 hover:text-gray-900 whitespace-nowrap"
+                    style={{ fontSize: linkSize }}
+                  >
+                    {link.text}
+                  </NavLink>
+                )}
+              </div>
+            ))}
+          </div>
+
+          {/* Right Section */}
+          <div className="flex items-center space-x-6">
+            <Link
+              to="/book"
+              className="bg-black text-white px-4 lg:px-6 hidden lg:flex items-center justify-center whitespace-nowrap"
+              style={{ height: btnHeight }}
+            >
+              RESERVE
             </Link>
-          </li>
-        </ul>
+            {/* Mobile Reserve Button */}
+            <Link
+              to="/book"
+              className="bg-black text-white px-4 py-2 text-sm lg:hidden flex items-center justify-center whitespace-nowrap"
+            >
+              BOOK
+            </Link>
+          </div>
+        </div>
+
+        {/* Mobile Navigation */}
+        <div
+          className={`${
+            isNavOpen ? "max-h-screen" : "max-h-0"
+          } lg:hidden overflow-hidden transition-all duration-300`}
+        >
+          <div className="py-4 space-y-4">
+            {[...navbarData.links, ...navbarData.sidebarLinks].map(
+              (link, index) => {
+                // For mobile, we'll keep the click functionality
+                const [isThisDropdownOpen, setIsThisDropdownOpen] =
+                  useState(false);
+                const dropdownItems =
+                  link.text === "HOTELS & RESORTS"
+                    ? hotelsAndResortsDropdown
+                    : link.text === "DESTINATIONS"
+                    ? destinationsDropdown
+                    : [];
+
+                return (
+                  <div key={index}>
+                    {link.isDropdown ? (
+                      <>
+                        <button
+                          className="w-full text-left px-4 py-2 text-gray-600 hover:bg-gray-100 whitespace-nowrap"
+                          onClick={() =>
+                            setIsThisDropdownOpen(!isThisDropdownOpen)
+                          }
+                        >
+                          {link.text}
+                        </button>
+                        {isThisDropdownOpen && (
+                          <div className="bg-gray-50 py-2">
+                            {dropdownItems.map((item, i) => (
+                              <Link
+                                key={i}
+                                to={item.link}
+                                className="block px-8 py-2 text-sm text-gray-600 hover:bg-gray-100"
+                                onClick={() => {
+                                  setIsThisDropdownOpen(false);
+                                  setIsNavOpen(false);
+                                }}
+                              >
+                                {item.text}
+                              </Link>
+                            ))}
+                          </div>
+                        )}
+                      </>
+                    ) : (
+                      <Link
+                        to={link.link}
+                        className="block px-4 py-2 text-gray-600 hover:bg-gray-100 whitespace-nowrap"
+                        onClick={() => setIsNavOpen(false)}
+                      >
+                        {link.text}
+                      </Link>
+                    )}
+                  </div>
+                );
+              }
+            )}
+          </div>
+        </div>
       </nav>
     </header>
   );

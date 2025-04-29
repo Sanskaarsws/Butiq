@@ -27,28 +27,28 @@
   }
 }
 
-.aboutSection {
-  margin: 5% 4rem 0;
+.experienceSection {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  margin: 5% 4rem;
   height: auto;
 }
 
-.aboutSection figure {
+.experienceSection figure {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
-.aboutSection article h1 {
+.experienceSection article h1 {
   font-size: 24px;
   line-height: normal;
   font-weight: 400;
   position: relative;
 }
 
-.aboutSection article {
+.experienceSection article {
   font-family: "Raleway", serif;
   display: flex;
   flex-direction: column;
@@ -58,7 +58,7 @@
   /* padding-right: 20%; */
 }
 
-.aboutSection article p {
+.experienceSection article p {
   font-family: "Glacial Indifference", sans-serif;
   font-size: 17px;
   font-weight: 400;
@@ -67,7 +67,7 @@
   color: #757575;
 }
 
-.aboutSection article div {
+.experienceSection article div {
   display: flex;
 }
 
@@ -123,7 +123,7 @@
 }
 
 .locations_container {
-  margin: 1rem 0 auto;
+  margin: 1rem 1% auto;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
   overflow-x: hidden;
@@ -234,7 +234,7 @@
   margin-bottom: 1rem;
 }
 
-.welcomeSection p {
+.welcomeSection > p:first-of-type {
   font-size: 17px;
   line-height: 1.6;
   margin: 0 auto 2rem;
@@ -248,15 +248,6 @@
   justify-content: center;
   gap: 2rem;
   margin-top: 30px;
-}
-
-.welcomeSection article div {
-  text-align: center;
-  width: 25%;
-
-  & > figure {
-    width: 4rem;
-  }
 }
 
 .welcomeSection figure {
@@ -277,10 +268,6 @@
   text-transform: uppercase;
   font-family: "Raleway";
 }
-.welcomeSection article div > p {
-  font-size: 14px;
-  margin-bottom: 0px;
-}
 
 /* ---------------------------------------------------------------------------------------------------------------------------------------------------- */
 
@@ -291,21 +278,25 @@
   margin: 20px auto;
 }
 
+.slick-dots {
+  display: none !important;
+}
+
 /* ---------------------------------------------------------------------------------------------------------------------------------------------------- */
 /* ---------------------------------------------------------------------------------------------------------------------------------------------------- */
 
 @media screen and (max-width: 1024px) {
-  .aboutSection {
-    display: grid;
+  .experienceSection {
     grid-template-columns: 1fr;
-    min-height: 100vh;
+    min-height: auto;
+    margin-inline: 5%;
   }
 
-  .aboutSection article {
+  .experienceSection article {
     grid-row: 2/3;
     padding: 5%;
   }
-  .aboutSection figure {
+  .experienceSection figure {
     grid-row: 1/2;
   }
 }
@@ -316,7 +307,7 @@
     grid-row: 1/2;
   }
 
-  .aboutSection article h1,
+  .experienceSection article h1,
   .whyUsContainer article h1 {
     font-size: 34px;
     font-weight: 700;
@@ -330,29 +321,38 @@
     grid-row: 2/3;
   }
 
-  .aboutSection article p {
+  .experienceSection article p {
     margin: 5% 0;
   }
   .aboutSection figure img {
     height: 60%;
   }
 
-  .aboutSection article p {
+  .experienceSection article p {
     font-size: 14px;
   }
 
-  .aboutSection article div > button:first-of-type {
+  .experienceSection article div > button:first-of-type {
     margin-right: 0%;
   }
 
-  .aboutSection article {
-    padding: 5%;
-  }
-
-  .aboutSection article div {
+  .experienceSection article div {
     flex-direction: column;
     gap: 1.5rem;
     width: 100%;
+  }
+
+  .locations_container {
+    & > div {
+      & figure {
+        height: 28rem;
+      }
+    }
+
+    & .slick-slider {
+      height: auto;
+      margin-block: 5%;
+    }
   }
 }
 

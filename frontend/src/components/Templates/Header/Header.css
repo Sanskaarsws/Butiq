@@ -1,7 +1,7 @@
 .header_container {
   & > figure {
     position: relative;
-    height: 85vh;
+    /* height: 85vh; */
 
     & > img {
       object-fit: cover;
@@ -16,7 +16,7 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      font-size: 4rem;
+
       color: rgb(255, 255, 255);
 
       &::before {
@@ -25,7 +25,7 @@
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        width: 150%;
+        width: 120%;
 
         height: 120%;
         background-color: rgba(0, 0, 0, 0.801);
