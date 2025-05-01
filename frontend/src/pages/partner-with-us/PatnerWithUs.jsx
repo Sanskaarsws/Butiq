@@ -1,5 +1,5 @@
 import React from "react";
-import "@/styles/PartnerWithUs.css";
+import "./PartnerWithUs.css";
 
 import service_1 from "@/assets/images/conceptualizeImg.svg";
 import service_2 from "@/assets/images/mobilizeImg.svg";
