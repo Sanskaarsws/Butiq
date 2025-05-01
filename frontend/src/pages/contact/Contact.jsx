@@ -1,4 +1,4 @@
-import "@/styles/Contact.css";
+import "./Contact.css";
 import contactImg from "@/assets/images/contactUsImg.jpg";
 
 export default function Contact() {

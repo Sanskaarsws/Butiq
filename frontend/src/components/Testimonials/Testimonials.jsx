@@ -1,49 +1,47 @@
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import "./Testimonial.css";
+import useEmblaCarousel from "embla-carousel-react";
+import Autoplay from "embla-carousel-autoplay";
+import { useEffect, useCallback, useRef } from "react";
+import "./Testimonial.css"; // Keep your custom styles if needed
 
-const TestimonialSlider = ({
-  testimonials,
-  autoplaySpeed = 4000,
-  showArrows = true,
-}) => {
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: autoplaySpeed,
-    arrows: false, // Removed left and right buttons
-    customPaging: () => (
-      <div
-        className="w-2 h-2 rounded-full bg-gray-500 mx-1"
-        style={{ display: "none" }}
-      ></div>
-    ), // Custom dot style
-    dotsClass: "slick-dots flex justify-center space-x-2", // Tailwind styling for dots
-  };
+const EmblaTestimonialSlider = ({ testimonials, autoplaySpeed = 4000 }) => {
+  const autoplay = useRef(
+    Autoplay({ delay: autoplaySpeed, stopOnInteraction: false })
+  );
+
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true }, [
+    autoplay.current,
+  ]);
+
+  const scrollTo = useCallback(
+    (index) => {
+      if (emblaApi) emblaApi.scrollTo(index);
+    },
+    [emblaApi]
+  );
 
   return (
-    <div className="w-[85%] p-10  text-center">
+    <div className="w-[85%] mx-auto p-10 text-center overflow-hidden">
       <img
         src="https://d245xcy5u3wmzt.cloudfront.net/assets/images/banners/home/plane_c.png"
         alt="Airplane Icon"
         className="w-20 mx-auto mb-6"
       />
-      <Slider {...settings}>
-        {testimonials.map((testimonial, index) => (
-          <div key={index} className="p-6 testimonialSliderCard">
-            <p className="  ">“{testimonial.quote}”</p>
-            <hr className="divider min-w-16 border-black" />
-            <p className="mt-4 text-sm ">{testimonial.author}</p>
-          </div>
-        ))}
-      </Slider>
+      <div className="overflow-hidden" ref={emblaRef}>
+        <div className="flex">
+          {testimonials.map((testimonial, index) => (
+            <div
+              key={index}
+              className="flex-none w-full p-6 testimonialSliderCard"
+            >
+              <p className="mb-4">“{testimonial.quote}”</p>
+              <hr className="divider min-w-16 border-black mx-auto" />
+              <p className="mt-4 text-sm">{testimonial.author}</p>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 };
 
-export default TestimonialSlider;
+export default EmblaTestimonialSlider;

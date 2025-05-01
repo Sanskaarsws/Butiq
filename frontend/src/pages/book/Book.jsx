@@ -3,7 +3,7 @@ import { DateRange } from "react-date-range";
 import "react-date-range/dist/styles.css"; // Default styles
 import "react-date-range/dist/theme/default.css"; // Default theme
 import { Box, Button, Select, MenuItem } from "@mui/material";
-import "@/styles/Book.css";
+import "./Book.css";
 import { Link } from "react-router-dom";
 import Header from "@/components/Templates/Header/Header";
 import expBanner from "@/assets/images/photo-1613247197993-cc5e8c4cdbcd.avif";
@@ -24,14 +24,14 @@ const Book = () => {
         <Header title="BOOKING" bannerImg={expBanner} />
       </div>
 
-        {/* Progress Bar */}
+      {/* Progress Bar */}
       <ProgressBar steps={["HOTEL", "ROOMS", "BOOK"]} activeStep={0} />
 
       <Box className="booking-container">
         <h1 className="text-start w-full text-[36px] font-[Raleway]">
           Lets Book Your Escape
         </h1>
-        
+
         {/* Hotel Selection Dropdown */}
         <Select
           value={selectedHotel}

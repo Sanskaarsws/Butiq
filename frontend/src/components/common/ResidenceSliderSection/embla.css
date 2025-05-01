@@ -1,0 +1,20 @@
+.embla__viewport {
+  overflow: hidden;
+  width: 100%;
+}
+.embla__container {
+  display: flex;
+}
+.embla__slide {
+  position: relative;
+  min-width: 0;
+}
+.embla-card .embla__viewport {
+  height: 100%;
+}
+.embla-card .embla__container {
+  height: 100%;
+}
+.embla-card .embla__slide {
+  flex: 0 0 100%;
+}

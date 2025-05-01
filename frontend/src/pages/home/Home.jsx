@@ -1,29 +1,31 @@
 import Slider from "react-slick";
 
-import "../styles/Home.css";
+import "./Home.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 // Images
-import heroImage_1 from "../assets/images/heroBanner_1.jpg";
-import heroImage_2 from "../assets/images/heroBanner_2.jpg";
-import heroImage_3 from "../assets/images/heroBanner_3.jpg";
-import aboutImage from "../assets/images/coffeeIMg2.jpg";
-import leftArrow from "../assets/images/Vecto4.svg";
+import heroImage_1 from "../../assets/images/heroBanner_1.jpg";
+import heroImage_2 from "../../assets/images/heroBanner_2.jpg";
+import heroImage_3 from "../../assets/images/heroBanner_3.jpg";
+import aboutImage from "../../assets/images/coffeeIMg2.jpg";
+import leftArrow from "../../assets/images/Vecto4.svg";
 
-import butlerOnCallImg from "../assets/images/BUTLERONCALL.svg";
-import regionalCuisineImg from "../assets/images/AUTHENTICREGIONALCUISINE.svg";
-import PetsWelcomedImg from "../assets/images/PETSWELCOMEEVERYWHERE.svg";
+import butlerOnCallImg from "../../assets/images/BUTLERONCALL.svg";
+import regionalCuisineImg from "../../assets/images/AUTHENTICREGIONALCUISINE.svg";
+import PetsWelcomedImg from "../../assets/images/PETSWELCOMEEVERYWHERE.svg";
 
 // Hotel Images
-import hotel_1 from "../assets/images/WhatsApp13.09.17_f8b7c8f2.jpg";
-import hotel_2 from "../assets/images/WhatsApp Image 2025-02-03 at 13.02.01_b674490agra.jpg";
-import hotel_3 from "../assets/images/WhatsAppImage2025-02-0313.02.54_a1328233Benaras.jpg";
-import hotel_4 from "../assets/images/WhatsAppImage2025-02-0313.08.39_c8c839Satpura.jpg";
-import hotel_5 from "../assets/images/WhatsAppImage2025-02-03at13.15.42_8cd8c509Sheikhpura.jpg";
+import hotel_1 from "../../assets/images/WhatsApp13.09.17_f8b7c8f2.jpg";
+import hotel_2 from "../../assets/images/WhatsApp Image 2025-02-03 at 13.02.01_b674490agra.jpg";
+import hotel_3 from "../../assets/images/WhatsAppImage2025-02-0313.02.54_a1328233Benaras.jpg";
+import hotel_4 from "../../assets/images/WhatsAppImage2025-02-0313.08.39_c8c839Satpura.jpg";
+import hotel_5 from "../../assets/images/WhatsAppImage2025-02-03at13.15.42_8cd8c509Sheikhpura.jpg";
 
-import aboutVideo from "../assets/video/Amanjena.mp4";
-import TestimonialSlider from "../components/Testimonials/Testimonials";
+import aboutVideo from "../../assets/video/Amanjena.mp4";
+import TestimonialSlider from "../../components/Testimonials/Testimonials";
+import EmblaHeroSlider from "../../components/common/Slider/HeroSlider";
+import EmblaDestinationSlider from "../../components/common/Slider/EmblaHotelSlider";
 
 // Reusable Arrow Components
 const Arrow = ({ onClick, direction }) => (
@@ -95,19 +97,10 @@ export default function Home() {
     <main className="mainContainer">
       {/* Hero Section */}
       <section className="heroSection">
-        <Slider {...sliderSettings}>
-          {[heroImage_1, heroImage_2, heroImage_3].map((image, index) => (
-            <div key={index}>
-              <figure>
-                <img
-                  src={image}
-                  alt={`Hero banner ${index + 1}`}
-                  loading="lazy"
-                />
-              </figure>
-            </div>
-          ))}
-        </Slider>
+        <EmblaHeroSlider
+          images={[heroImage_1, heroImage_2, heroImage_3]}
+          autoplaySpeed={5000}
+        />
       </section>
 
       {/* Welcome Section */}
@@ -162,18 +155,7 @@ export default function Home() {
       <section>
         <h2 className="text-center mt-12 text-lg">DESTINATIONS</h2>
         <article className="locations_container">
-          <Slider {...hotelSliderSettings}>
-            {hotels.map((hotel, index) => (
-              <div key={index}>
-                <figure>
-                  <img src={hotel.image} alt={hotel.location} loading="lazy" />
-                  <div>
-                    <span>{hotel.branch.toUpperCase()}</span>
-                  </div>
-                </figure>
-              </div>
-            ))}
-          </Slider>
+          <EmblaDestinationSlider destinations={hotels} />
         </article>
       </section>
 
