@@ -12,7 +12,7 @@ const PartnerWithUs = () => {
       {/* Partner Section */}
       <section className="partner-section">
         <div className="partner-content">
-          <h2>PARTNER WITH US</h2>
+          <h2 >PARTNER WITH US</h2>
           <p>Does this sound interesting? Plan your Butiq property today.</p>
           <button className="partner-btn">Connect</button>
         </div>
@@ -20,10 +20,10 @@ const PartnerWithUs = () => {
 
       {/* Services Section */}
       <section className="services-section">
-        <h2>SERVICES WE OFFER</h2>
+        <h2 className="font-[Raleway]">SERVICES WE OFFER</h2>
 
-        <div className="services-list flex flex-wrap justify-center gap-5 mt-0">
-          <div className="service-item w-auto md:w-[30%]">
+        <div className="flex flex-wrap justify-between  mt-0">
+          <div className="service-item w-auto md:w-[20%]">
             <div className="service-image">
               <img src={service_1} alt="Service 1" />
             </div>
@@ -37,7 +37,7 @@ const PartnerWithUs = () => {
               network of hoteliers
             </p>
           </div>
-          <div className="service-item w-auto md:w-[30%]">
+          <div className="service-item w-auto md:w-[20%]">
             <div className="service-image">
               <img src={service_2} alt="Service 2" />
             </div>
@@ -49,7 +49,7 @@ const PartnerWithUs = () => {
               supplier partnerships
             </p>
           </div>
-          <div className="service-item w-auto md:w-[30%]">
+          <div className="service-item w-auto md:w-[20%]">
             <div className="service-image">
               <img src={service_3} alt="Service 3" />
             </div>
@@ -60,7 +60,7 @@ const PartnerWithUs = () => {
               vendorship & staff management
             </p>
           </div>
-          <div className="service-item w-auto md:w-[30%]">
+          <div className="service-item w-auto md:w-[20%]">
             <div className="service-image">
               <img src={service_4} alt="Service 4" />
             </div>

@@ -212,7 +212,7 @@ const ImageSlider = ({ slides, page, noOfSlides = 3 }) => {
                   <CardSlider images={slide.images} />
                 )}
               </div>
-              <h3 style={{ fontSize: "14px", margin: "10px 0 5px" }}>
+              <h3 style={{ fontSize: "14px", margin: "10px 0 0" }}>
                 {slide.title}
               </h3>
               <p style={{ color: "#757575", fontSize: "14px" }}>

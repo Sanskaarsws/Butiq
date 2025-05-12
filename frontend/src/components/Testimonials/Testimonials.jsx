@@ -20,18 +20,18 @@ const EmblaTestimonialSlider = ({ testimonials, autoplaySpeed = 4000 }) => {
   );
 
   return (
-    <div className="w-[85%] mx-auto p-10 text-center overflow-hidden">
+    <div className="w-full md:w-[85%] mx-auto p-10 text-center overflow-hidden">
       <img
         src="https://d245xcy5u3wmzt.cloudfront.net/assets/images/banners/home/plane_c.png"
         alt="Airplane Icon"
-        className="w-20 mx-auto mb-6"
+        className="w-20 mx-auto my-2 md:my-4"
       />
       <div className="overflow-hidden" ref={emblaRef}>
         <div className="flex">
           {testimonials.map((testimonial, index) => (
             <div
               key={index}
-              className="flex-none w-full p-6 testimonialSliderCard"
+              className="flex-none w-full p-0 md:p-6 testimonialSliderCard"
             >
               <p className="mb-4">“{testimonial.quote}”</p>
               <hr className="divider min-w-16 border-black mx-auto" />

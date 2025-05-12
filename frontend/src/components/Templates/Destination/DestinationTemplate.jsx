@@ -1,11 +1,13 @@
 import { useLocation } from "react-router-dom";
-import HotelComponent from "@/components/Templates/HotelComponent/HotelComponent";
-import Header from "@/components/Templates/Header/Header";
+import HotelComponent from "../HotelComponent/HotelComponent";
+import Header from "../../Templates/Header/Header";
 import "./DestinationTemplate.css";
 
 export default function DestinationTemplate() {
   const location = useLocation();
   const destinationData = location.state?.data || {};
+
+  console.log("DDDD", location.state.data);
 
   return (
     <div style={{ backgroundColor: "#fcfcfa" }}>
@@ -41,4 +43,3 @@ export default function DestinationTemplate() {
     </div>
   );
 }
-
