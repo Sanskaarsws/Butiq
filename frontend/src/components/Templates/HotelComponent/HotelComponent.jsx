@@ -18,7 +18,7 @@ const HotelComponent = ({
       {/* Text Section */}
       <div className="flex-1 p-4 sm:p-6 md:p-8">
         <h2
-          className="text-xl sm:text-2xl md:text-3xl mb-1 font-bold"
+          className="text-xl sm:text-2xl md:text-3xl mb-1"
           style={{ fontFamily: "Raleway" }}
         >
           {title?.toUpperCase()}
@@ -35,7 +35,7 @@ const HotelComponent = ({
           aria-label={buttonText}
         >
           <span
-            className="text-xs sm:text-sm transition-all duration-300 border-b border-black pb-1 group-hover:border-gray-500 group-hover:text-gray-700"
+            className="text-xs sm:text-sm transition-all duration-300 border-b border-black cursor-pointer group-hover:border-gray-500 group-hover:text-gray-700"
             style={{ fontFamily: "Raleway" }}
           >
             {buttonText?.toUpperCase()}

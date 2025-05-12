@@ -1,87 +1,82 @@
-@import "tailwindcss";
-
 @import url("https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap");
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
+@import "tailwindcss";
+/* 
 @font-face {
   font-family: "Now";
   src: url("./assets/fonts/now/Now-Black.otf") format("opentype");
-  font-weight: 900; /* Black */
+  font-weight: 900;
   font-style: normal;
 }
 
 @font-face {
   font-family: "Now";
   src: url("./assets/fonts/now/Now-Bold.otf") format("opentype");
-  font-weight: 700; /* Bold */
+  font-weight: 700;
   font-style: normal;
 }
 
 @font-face {
   font-family: "Now";
   src: url("./assets/fonts/now/Now-Light.otf") format("opentype");
-  font-weight: 300; /* Light */
+  font-weight: 300;
   font-style: normal;
 }
 
 @font-face {
   font-family: "Now";
   src: url("./assets/fonts/now/Now-Medium.otf") format("opentype");
-  font-weight: 500; /* Medium */
+  font-weight: 500;
   font-style: normal;
 }
 
 @font-face {
   font-family: "Now";
   src: url("./assets/fonts/now/Now-Regular.otf") format("opentype");
-  font-weight: 400; /* Regular */
+  font-weight: 400;
   font-style: normal;
 }
 
 @font-face {
   font-family: "Now";
   src: url("./assets/fonts/now/Now-Thin.otf") format("opentype");
-  font-weight: 100; /* Thin */
+  font-weight: 100;
   font-style: normal;
 }
 
 @font-face {
   font-family: "Now Alt";
   src: url("./assets/fonts/now/NowAlt-Black.otf") format("opentype");
-  font-weight: 900; /* Alt Black */
+  font-weight: 900;
   font-style: normal;
 }
 
 @font-face {
   font-family: "Now Alt";
   src: url("./assets/fonts/now/NowAlt-Bold.otf") format("opentype");
-  font-weight: 700; /* Alt Bold */
+  font-weight: 700;
   font-style: normal;
 }
 
 @font-face {
   font-family: "Now Alt";
   src: url("./assets/fonts/now/NowAlt-Light.otf") format("opentype");
-  font-weight: 300; /* Alt Light */
+  font-weight: 300;
   font-style: normal;
 }
 
 @font-face {
   font-family: "Now Alt";
   src: url("./assets/fonts/now/NowAlt-Medium.otf") format("opentype");
-  font-weight: 500; /* Alt Medium */
+  font-weight: 500;
   font-style: normal;
 }
 
 @font-face {
   font-family: "Now Alt";
   src: url("./assets/fonts/now/NowAlt-Regular.otf") format("opentype");
-  font-weight: 400; /* Alt Regular */
+  font-weight: 400;
   font-style: normal;
-}
+} */
 
 @font-face {
   font-family: "Glacial Indifference";
@@ -106,14 +101,6 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* *,
-*::after,
-*::before {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-} */
-
 html {
   scroll-behavior: smooth;
 }
@@ -121,6 +108,7 @@ html {
 body {
   background-color: #fcfcfa;
   /* font-family: "Raleway", serif; */
-  /* font-family: "Glacial Indifference", sans-serif; */
-  font-family: "Raleway", Arial, sans-serif;
+  font-family: "Glacial Indifference", sans-serif;
+  /* font-family: "Raleway", Arial, sans-serif; */
+  /* font-family: "Now"; */
 }

@@ -1,0 +1,89 @@
+.embla {
+  overflow: hidden;
+  position: relative;
+  user-select: none;
+}
+
+.embla__container {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  z-index: 10;
+  pointer-events: none;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0) 60%,
+    /* Transparent center */ rgba(252, 252, 250, 0.108) 85%,
+    /* Light white color with opacity */ rgba(252, 252, 250, 1) 100%
+      /* Solid white edges */
+  );
+}
+
+.embla__slide {
+  flex: 0 0 100%;
+  min-width: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 6rem;
+}
+
+.embla__dots {
+  position: absolute;
+  bottom: 5%;
+  right: 5%;
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.embla__dot {
+  width: 10px;
+  height: 10px;
+  background-color: #ffffff;
+  opacity: 20%;
+  border-radius: 50%;
+  margin: 0 5px;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  transition: background-color 0.3s;
+}
+
+.embla__dot.is-selected {
+  background-color: white;
+  opacity: 1;
+}
+
+.navigationArrows_container {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  transform: translateY(-50%);
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  z-index: 10;
+}
+
+.navigationArrows_container > button {
+  background: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.navigationArrows_container > button:focus {
+  outline: none;
+}

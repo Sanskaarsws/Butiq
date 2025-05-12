@@ -1,5 +1,5 @@
 .partner-services-container {
-  width: 80%;
+  width: 90%;
   margin: auto;
   font-family: "Glacial Indifference", sans-serif;
   color: #333;
@@ -7,7 +7,7 @@
 
 /* Partner Section */
 .partner-section {
-  background: url("../assets/images/pexels-wildlittlethingsphoto-708392.jpg");
+  background: url("../../assets/images/pexels-wildlittlethingsphoto-708392.jpg");
   background-size: cover;
   background-position: 0%;
   padding: 50px;
@@ -24,7 +24,8 @@
 }
 
 .partner-content h2 {
-  font-size: 24px;
+  font-size: 32px;
+  font-family: Raleway, sans-serif;
   margin-bottom: 10px;
 }
 
@@ -51,13 +52,6 @@
     font-size: 24px;
   }
 }
-
-/* .services-list {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  margin-top: 0px;
-} */
 
 .service-item {
   padding: 20px;

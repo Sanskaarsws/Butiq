@@ -1,8 +1,4 @@
-import Slider from "react-slick";
-
 import "./Home.css";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 
 // Images
 import heroImage_1 from "../../assets/images/heroBanner_1.jpg";
@@ -26,6 +22,7 @@ import aboutVideo from "../../assets/video/Amanjena.mp4";
 import TestimonialSlider from "../../components/Testimonials/Testimonials";
 import EmblaHeroSlider from "../../components/common/Slider/HeroSlider";
 import EmblaDestinationSlider from "../../components/common/Slider/EmblaHotelSlider";
+import { EmblaSlider } from "../../components/common/Slider/EmblaSlider";
 
 // Reusable Arrow Components
 const Arrow = ({ onClick, direction }) => (
@@ -70,36 +67,26 @@ const testimonials = [
   },
 ];
 
-const sliderSettings = {
-  infinite: true,
-  speed: 500,
-  slidesToShow: 1,
-  autoplay: true,
-  autoplaySpeed: 5000,
-  nextArrow: <Arrow direction="next" />,
-  prevArrow: <Arrow direction="prev" />,
-};
-
-const hotelSliderSettings = {
-  infinite: true,
-  speed: 500,
-  slidesToShow: 3,
-  autoplay: true,
-  autoplaySpeed: 4000,
-  responsive: [
-    { breakpoint: 1024, settings: { slidesToShow: 2 } },
-    { breakpoint: 600, settings: { slidesToShow: 1 } },
-  ],
-};
+const HeroBanner_array = [heroImage_1, heroImage_2, heroImage_3].map(
+  (e, index) => (
+    <figure style={{ width: "100%" }} key={index}>
+      <img src={e} alt="Banner" />
+    </figure>
+  )
+);
 
 export default function Home() {
   return (
     <main className="mainContainer">
       {/* Hero Section */}
       <section className="heroSection">
-        <EmblaHeroSlider
-          images={[heroImage_1, heroImage_2, heroImage_3]}
-          autoplaySpeed={5000}
+        <EmblaSlider
+          slides={HeroBanner_array}
+          no_of_slides={{ xs: 1, sm: 1, md: 1, lg: 1, xl: 1 }}
+          delay={3000}
+          autoScroll={true}
+          navigationDots={true}
+          backdrop={true}
         />
       </section>
 
@@ -153,9 +140,11 @@ export default function Home() {
 
       {/* Destinations */}
       <section>
-        <h2 className="text-center mt-12 text-lg">DESTINATIONS</h2>
+        <h2 className="text-center mt-12 text-[22px] font-[Raleway]">
+          DESTINATIONS
+        </h2>
         <article className="locations_container">
-          <EmblaDestinationSlider destinations={hotels} />
+          <EmblaDestinationSlider destinations={hotels} backdrop={true} />
         </article>
       </section>
 

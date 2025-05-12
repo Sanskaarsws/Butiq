@@ -270,7 +270,7 @@ const destinationsDropdown = [
 
       {
         text: "Satpura Tiger Reserve",
-        link: "/satpuraTigerReserve",
+        link: "/satpura-tiger-reserve",
         state: "MP",
         bannerImg: satpuraTigerReserve,
 
